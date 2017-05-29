@@ -9,6 +9,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // here we use active, big, small, very-big..
 const replaceSuffixPattern = /--(active|big|small|very-big)/g;
 const icons = {
+    "ios-add": [30, "#bbb"],
+    "ios-add--big": [50, "#bbb"],
+
     "ios-person": [30, "#bbb"],
     "ios-person--big": [50, "#bbb"],
 
