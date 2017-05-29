@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 class FirstTabScreen extends Component {
-  
+  constructor(props) {
+    super(props)
+  }
+
   render() {
-    console.log('Nå er vi her')
-    const myIcon = <Icon name="rocket" size={30} color="#900" />
-    console.log(myIcon)
     return (
       <Text>FirstTabScreen!</Text>
     );
   }
 }
 
-export default FirstTabScreen
+const mapDispatchToProps = (dispatch) => {
+  return {
+  };
+};
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FirstTabScreen);

@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { Navigation } from 'react-native-navigation';
+import { Provider } from 'react-redux';
+
 import { registerScreens } from './screens';
 import { iconsMap, iconsLoaded } from './utils/app-icons';
+import configureStore from './store/configure-store';
 
-registerScreens();
+const store = configureStore()
+
+registerScreens(store, Provider);
 
 class App extends Component {
     constructor(props) {
         super(props);
-        
+
         iconsLoaded.then(() => {
             this.startApp();
         });
