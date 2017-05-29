@@ -3,7 +3,7 @@ import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 
 import { registerScreens } from './screens';
-import { iconsMap, iconsLoaded } from './utils/app-icons';
+import { iconsLoaded } from './utils/app-icons';
 import configureStore from './store/configure-store';
 
 const store = configureStore()
