@@ -9,7 +9,7 @@ class FirstTabScreen extends Component {
 
 
   constructor(props) {
-    super(props)
+    super(props);
     this.props.navigator.setButtons({
       rightButtons: [
         {

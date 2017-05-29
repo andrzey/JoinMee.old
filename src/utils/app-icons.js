@@ -4,6 +4,7 @@
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 // define your suffixes by yourself..
 // here we use active, big, small, very-big..
@@ -31,6 +32,8 @@ const icons = {
     // Use other Icon provider, see the logic at L39
     "facebook": [30, "#bbb", FontAwesome],
     "facebook--active": [30, "#fff", FontAwesome],
+
+    "done": [30, "#000000", MaterialIcons]
 }
 
 const defaultIconProvider = Ionicons;
