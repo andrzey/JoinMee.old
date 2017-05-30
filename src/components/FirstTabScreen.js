@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Text, TouchableHighlight, Platform, View, ListView, FlatList } from 'react-native';
+import { Text, Platform, View, FlatList, StyleSheet } from 'react-native';
 
 import { iconsMap } from '../utils/app-icons';
+import HappeningListItem from './HappeningListItem';
 
 class FirstTabScreen extends Component {
 
@@ -24,7 +25,8 @@ class FirstTabScreen extends Component {
       }]
     })
     this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
-    this._onPressButton = this._onPressButton.bind(this);
+    this._navigateToHappening = this._navigateToHappening.bind(this);
+    this._selectHappening = this._selectHappening.bind(this);
   }
 
   _onNavigatorEvent(event) {
@@ -54,28 +56,47 @@ class FirstTabScreen extends Component {
     }
   }
 
-  _onPressButton() {
+  _navigateToHappening(happening) {
     this.props.navigator.push({
       screen: 'example.Happening',
-      title: 'Happening',
-      animated: true
+      title: happening.name,
+      animated: true,
+      passProps: { happening }
     });
   }
 
-  _keyExtractor = (item, index) => item.id;
+  _renderSeparator = () => {
+    return <View style={styles.listItemSeperator} />
+  }
+
+  _selectHappening(happening) {
+    this._navigateToHappening(happening);
+  }
 
   render() {
     return (
-      <View style={{ flex: 1, paddingTop: 22 }}>
+      <View style={styles.container}>
         <FlatList
-          keyExtractor={(item) => item}
-          data={['John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin']}
-          renderItem={({ item }) => <Text>{item}</Text>}
+          keyExtractor={(item) => item.name}
+          ItemSeparatorComponent={this._renderSeparator}
+          data={this.props.happenings}
+          renderItem={({ item }) => <HappeningListItem onPress={this._selectHappening} happening={item} />}
         />
       </View>
     );
   }
 }
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  listItemSeperator: {
+    height: 1,
+    width: "100%",
+    backgroundColor: "#CED0CE"
+  }
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -84,6 +105,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    happenings: state.happenings
   };
 }
 
