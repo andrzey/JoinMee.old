@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Text, AlertIOS } from 'react-native';
+import { Text, TouchableHighlight, Platform } from 'react-native';
 
 import { iconsMap } from '../utils/app-icons';
 
@@ -11,14 +11,20 @@ class FirstTabScreen extends Component {
   constructor(props) {
     super(props);
     this.props.navigator.setButtons({
-      rightButtons: [
-        {
-          id: 'add',
-          icon: iconsMap['ios-add'],
-        }
-      ]
+      rightButtons: [{
+        id: 'add',
+        ...Platform.select({
+          ios: {
+            icon: iconsMap['ios-add'],
+          },
+          android: {
+            icon: iconsMap['add']
+          },
+        })
+      }]
     })
     this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
+    this._onPressButton = this._onPressButton.bind(this);
   }
 
   _onNavigatorEvent(event) {
@@ -48,9 +54,19 @@ class FirstTabScreen extends Component {
     }
   }
 
+  _onPressButton() {
+    this.props.navigator.push({
+      screen: 'example.Happening',
+      title: 'Happening',
+      animated: true
+    });
+  }
+
   render() {
     return (
-      <Text>FirstTabScreen!</Text>
+      <TouchableHighlight onPress={this._onPressButton}>
+        <Text>FirstTabScreen!</Text>
+      </TouchableHighlight>
     );
   }
 }

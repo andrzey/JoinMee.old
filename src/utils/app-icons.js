@@ -33,7 +33,8 @@ const icons = {
     "facebook": [30, "#bbb", FontAwesome],
     "facebook--active": [30, "#fff", FontAwesome],
 
-    "done": [30, "#000000", MaterialIcons]
+    "done": [30, "#000000", MaterialIcons],
+    "add": [30, "#000000", MaterialIcons]
 }
 
 const defaultIconProvider = Ionicons;
