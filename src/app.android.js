@@ -18,11 +18,11 @@ Navigation.startSingleScreenApp({
         topTabs: [
             {
                 screenId: 'example.FirstTabScreen',
-                title: 'Alarms'
+                title: 'Happenings'
             },
             {
                 screenId: 'example.SecondTabScreen',
-                title: 'Groups'
+                title: 'Mine Happenings'
             }
         ]
     },

@@ -26,13 +26,13 @@ class App extends Component {
                     label: 'One',
                     screen: 'example.FirstTabScreen',
                     icon: iconsMap['ios-person--active'],
-                    title: 'Screen One'
+                    title: 'Happenings'
                 },
                 {
                     label: 'Two',
                     screen: 'example.SecondTabScreen',
                     icon: iconsMap['ios-person--active'],
-                    title: 'Screen Two'
+                    title: 'Mine Happenings'
                 }
             ]
         });
