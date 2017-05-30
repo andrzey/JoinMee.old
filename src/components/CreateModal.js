@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Platform } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Platform } from 'react-native';
 
 import { iconsMap } from '../utils/app-icons';
 
@@ -43,7 +43,26 @@ class CreateModal extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Her er jeg</Text>
+                <TextInput
+                    style={styles.textInput}
+                    multiline={false}
+                    placeholder='Arrangement navn'
+                />
+                <TextInput
+                    style={styles.textInput}
+                    multiline={false}
+                    placeholder='Tid'
+                />
+                <TextInput
+                    style={styles.textInput}
+                    multiline={false}
+                    placeholder='Sted'
+                />
+                <TextInput
+                    style={styles.textInput}
+                    multiline={false}
+                    placeholder='Beskrivelse'
+                />
             </View>
         );
     }
@@ -53,8 +72,16 @@ var styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
         backgroundColor: 'white'
+    },
+    textInput: {
+        height: 40,
+        width: '100%',
+        marginTop: 5,
+        marginRight: 5,
+        marginBottom: 0,
+        marginLeft: 5
+
     }
 });
 
