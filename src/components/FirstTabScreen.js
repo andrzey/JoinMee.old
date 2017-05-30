@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Text, TouchableHighlight, Platform } from 'react-native';
+import { Text, TouchableHighlight, Platform, View, ListView, FlatList } from 'react-native';
 
 import { iconsMap } from '../utils/app-icons';
 
@@ -62,11 +62,17 @@ class FirstTabScreen extends Component {
     });
   }
 
+  _keyExtractor = (item, index) => item.id;
+
   render() {
     return (
-      <TouchableHighlight onPress={this._onPressButton}>
-        <Text>FirstTabScreen!</Text>
-      </TouchableHighlight>
+      <View style={{ flex: 1, paddingTop: 22 }}>
+        <FlatList
+          keyExtractor={(item) => item}
+          data={['John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin']}
+          renderItem={({ item }) => <Text>{item}</Text>}
+        />
+      </View>
     );
   }
 }

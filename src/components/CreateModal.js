@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Text, View, StyleSheet, TextInput, Platform } from 'react-native';
 
 import { iconsMap } from '../utils/app-icons';
+import * as actions from '../actions/happening-list.actions';
 
 class CreateModal extends Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            name: null,
+            time: null,
+            place: null,
+            description: null
+        };
+
         this.props.navigator.setButtons({
             rightButtons: [{
                 id: 'save',
@@ -32,7 +43,12 @@ class CreateModal extends Component {
     }
     _onNavigatorEvent(event) {
         if (event.type == 'NavBarButtonPress') {
-            if (event.id == 'cancel' || event.id == 'save') {
+            if (event.id == 'cancel') {
+                this.props.navigator.dismissModal({
+                    animationType: 'slide-down'
+                });
+            } else if (event.id == 'save') {
+                this.props.actions.addHappening(this.state);
                 this.props.navigator.dismissModal({
                     animationType: 'slide-down'
                 });
@@ -47,21 +63,29 @@ class CreateModal extends Component {
                     style={styles.textInput}
                     multiline={false}
                     placeholder='Arrangement navn'
+                    onChangeText={(name) => this.setState({ name })}
+                    value={this.state.name}
                 />
                 <TextInput
                     style={styles.textInput}
                     multiline={false}
                     placeholder='Tid'
+                    onChangeText={(time) => this.setState({ time })}
+                    value={this.state.time}
                 />
                 <TextInput
                     style={styles.textInput}
                     multiline={false}
                     placeholder='Sted'
+                    onChangeText={(place) => this.setState({ place })}
+                    value={this.state.place}
                 />
                 <TextInput
                     style={styles.textInput}
                     multiline={false}
                     placeholder='Beskrivelse'
+                    onChangeText={(description) => this.setState({ description })}
+                    value={this.state.description}
                 />
             </View>
         );
@@ -85,4 +109,15 @@ var styles = StyleSheet.create({
     }
 });
 
-export default CreateModal;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: bindActionCreators(actions, dispatch)
+    };
+};
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateModal);
