@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 class Happening extends Component {
     constructor(props) {
@@ -7,12 +7,27 @@ class Happening extends Component {
     }
 
     render() {
+        const happening = this.props.happening;
+
         return (
-            <Text>
-                Her er vi!
-            </Text>
+            <View style={styles.container}>
+                <Text style={styles.text}>{happening.name}</Text>
+                <Text style={styles.text}>{happening.time}</Text>
+                <Text style={styles.text}>{happening.place}</Text>
+                <Text style={styles.text}>{happening.description}</Text>
+            </View>
         );
     }
 }
+
+var styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        margin: 10
+    },
+    text: {
+        fontSize: 20
+    }
+});
 
 export default Happening;
