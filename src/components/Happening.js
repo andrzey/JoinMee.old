@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native'
 
+import CommentSection from './comment-section';
+
 class Happening extends Component {
     constructor(props) {
         super(props);
@@ -15,6 +17,7 @@ class Happening extends Component {
                 <Text style={styles.text}>{happening.time}</Text>
                 <Text style={styles.text}>{happening.place}</Text>
                 <Text style={styles.text}>{happening.description}</Text>
+                <CommentSection/>
             </View>
         );
     }
