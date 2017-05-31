@@ -23,16 +23,16 @@ class App extends Component {
         Navigation.startTabBasedApp({
             tabs: [
                 {
-                    label: 'One',
+                    label: 'Happenings',
                     screen: 'example.FirstTabScreen',
-                    icon: iconsMap['ios-person--active'],
+                    icon: iconsMap['ios-heart'],
                     title: 'Happenings'
                 },
                 {
-                    label: 'Two',
+                    label: 'Min Side',
                     screen: 'example.SecondTabScreen',
                     icon: iconsMap['ios-person--active'],
-                    title: 'Mine Happenings'
+                    title: 'Min Side'
                 }
             ]
         });
