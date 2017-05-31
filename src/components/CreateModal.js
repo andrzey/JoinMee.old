@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Text, View, StyleSheet, TextInput, Platform } from 'react-native';
+import uuid from 'react-native-uuid';
 
 import { iconsMap } from '../utils/app-icons';
 import * as actions from '../actions/happening-list.actions';
@@ -11,6 +12,7 @@ class CreateModal extends Component {
         super(props)
 
         this.state = {
+            id: uuid.v4(),
             name: null,
             time: null,
             place: null,
