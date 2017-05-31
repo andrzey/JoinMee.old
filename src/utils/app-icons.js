@@ -10,6 +10,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 // here we use active, big, small, very-big..
 const replaceSuffixPattern = /--(active|big|small|very-big)/g;
 const icons = {
+    "ios-heart": [30, "#bbb"],
+
     "ios-add": [30, "#bbb"],
     "ios-add--big": [50, "#bbb"],
 
