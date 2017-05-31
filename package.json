@@ -8,6 +8,7 @@
     "clear": "rm -rf node_modules && watchman watch-del-all && npm cache clean && npm i"
   },
   "dependencies": {
+    "lodash": "^4.17.4",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",
     "react-native-navigation": "^1.1.79",
