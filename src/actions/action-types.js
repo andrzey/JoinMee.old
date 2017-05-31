@@ -1,1 +1,2 @@
 export const ADD_HAPPENING = 'ADD_HAPPENING';
+export const ADD_COMMENT = 'ADD_COMMENT';

@@ -77,7 +77,7 @@ class FirstTabScreen extends Component {
     return (
       <View style={styles.container}>
         <FlatList
-          keyExtractor={(item) => item.name}
+          keyExtractor={(item) => item.id}
           ItemSeparatorComponent={this._renderSeparator}
           data={this.props.happenings}
           renderItem={({ item }) => <HappeningListItem onPress={this._selectHappening} happening={item} />}

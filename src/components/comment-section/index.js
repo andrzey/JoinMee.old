@@ -1,27 +1,49 @@
 import React, { Component } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, Text, TouchableHighlight, StyleSheet } from 'react-native';
 
 class CommentSection extends Component {
-    _onChangeText(text) {
-        this.props.onChangeText(text);
+    constructor(props){
+        super(props);
+
+        this._onChangeText = this._onChangeComment.bind(this);
     }
+
+    _onChangeComment(comment) {
+        this.props.onChangeComment(comment);
+    }
+
     render() {
         return (
-            <View>
+            <View style={styles.container}>
                 <TextInput
                     style={styles.textInput}
                     placeholder='Kommenter ...'
-                    onChangeText={(text) => _onChangeText}
-                    value={this.props.text}
+                    onChangeText={(comment) => this._onChangeComment(comment)}
+                    value={this.props.comment}
                 />
+                <TouchableHighlight style={styles.touchableContainer} onPress={this.props.onPress}>
+                    <Text style={styles.buttonText}>Kommenter</Text>
+                </TouchableHighlight>
             </View>
         );
     }
 }
 
 var styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     textInput: {
-        height: 40
+        height: 40,
+        marginTop: 10
+    },
+    touchableContainer: {
+        marginTop: 10
+    },
+    buttonText: {
+        color: '#007aff',
+        fontSize: 18,
+        fontWeight: '600'
     }
 });
 
