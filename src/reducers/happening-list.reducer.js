@@ -14,18 +14,12 @@ const happeningListReducer = (state = initialState, action) => {
             return [...state, action.happening];
         case actionTypes.ADD_COMMENT:
 
-            let foundHappening = _.find(state, happening => {
-                return happening.id === action.happeningId;
+            const newState = state.map(happening => {
+                if (happening.id === action.happeningId) {
+                    happening = Object.assign({}, happening, { comments: [...happening.comments, action.comment] });
+                    return happening;
+                } else return happening;
             });
-
-            const modifiedHappening = Object.assign({}, foundHappening, { comments: [...foundHappening.comments, action.comment] });
-
-            let foundIndex = _.findIndex(state, happening => {
-                return happening.id === action.happeningId
-            });
-
-            let newState = state.slice();
-            newState[foundIndex] = modifiedHappening;
 
             return newState;
         default:
