@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, TextInput, Text, TouchableHighlight, StyleSheet } from 'react-native';
+import { FlatList, View, TextInput, Text, TouchableHighlight, StyleSheet } from 'react-native';
 
 class CommentSection extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this._onChangeText = this._onChangeComment.bind(this);
@@ -31,14 +31,14 @@ class CommentSection extends Component {
 
 var styles = StyleSheet.create({
     container: {
-        flex: 1,
     },
     textInput: {
-        height: 40,
-        marginTop: 10
+        //flex: 1,
+        height: 30,
     },
     touchableContainer: {
-        marginTop: 10
+        //flex: 1,
+        height: 20
     },
     buttonText: {
         color: '#007aff',

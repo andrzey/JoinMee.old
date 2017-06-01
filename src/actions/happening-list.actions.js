@@ -6,3 +6,10 @@ export function addHappening(happening) {
         happening
     }
 }
+
+export function updateHappening(happening) {
+    return {
+        type: actionTypes.UPDATE_HAPPENING,
+        happening
+    }
+}

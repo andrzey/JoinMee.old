@@ -12,16 +12,25 @@ const happeningListReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_HAPPENING:
             return [...state, action.happening];
-        case actionTypes.ADD_COMMENT:
-
+        case actionTypes.UPDATE_HAPPENING:
             const newState = state.map(happening => {
-                if (happening.id === action.happeningId) {
-                    happening = Object.assign({}, happening, { comments: [...happening.comments, action.comment] });
-                    return happening;
-                } else return happening;
-            });
+                if (happening.id === action.happening.id) {
+                    happening = action.happening
 
+                    return happening;
+                }
+            });
             return newState;
+        /*        case actionTypes.ADD_COMMENT:
+        
+                    const newState = state.map(happening => {
+                        if (happening.id === action.happeningId) {
+                            happening = Object.assign({}, happening, { comments: [...happening.comments, action.comment] });
+                            return happening;
+                        } else return happening;
+                    });
+        
+                    return newState;*/
         default:
             return state
     }

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet } from 'react-native'
+import { FlatList, View, Text, StyleSheet } from 'react-native'
 
 import CommentSection from './comment-section';
 import * as actions from '../actions/happening.actions';
+import * as listActions from '../actions/happening-list.actions';
 
 class Happening extends Component {
     constructor(props) {
@@ -27,18 +28,23 @@ class Happening extends Component {
     }
 
     render() {
-        const happening = this.props.happening;
-
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>{happening.name}</Text>
-                <Text style={styles.text}>{happening.time}</Text>
-                <Text style={styles.text}>{happening.place}</Text>
-                <Text style={styles.text}>{happening.description}</Text>
+                <View>
+                    <Text style={styles.text}>{this.props.happening.name}</Text>
+                    <Text style={styles.text}>{this.props.happening.time}</Text>
+                    <Text style={styles.text}>{this.props.happening.place}</Text>
+                    <Text style={styles.text}>{this.props.happening.description}</Text>
+                </View>
                 <CommentSection
                     onChangeComment={this._onChangeComment}
                     text={this.state.comment}
                     onPress={this._addComment}
+                />
+                <FlatList
+                    keyExtractor={(item) => item.id}
+                    data={this.props.happening.comments}
+                    renderItem={({ item }) => <Text>{item.comment}</Text>}
                 />
             </View>
         );
@@ -47,8 +53,9 @@ class Happening extends Component {
 
 var styles = StyleSheet.create({
     container: {
+        display: 'flex',
         flex: 1,
-        margin: 10
+        margin: 10,
     },
     text: {
         fontSize: 20
@@ -57,12 +64,13 @@ var styles = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        actions: bindActionCreators(actions, dispatch)
+        actions: bindActionCreators(Object.assign({}, actions, listActions), dispatch)
     };
 };
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        happening: state.selectedHappening
     };
 }
 

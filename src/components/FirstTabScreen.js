@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Text, Platform, View, FlatList, StyleSheet } from 'react-native';
 
 import { iconsMap } from '../utils/app-icons';
+import * as actions from '../actions/happening.actions';
 import HappeningListItem from './HappeningListItem';
 
 class FirstTabScreen extends Component {
@@ -61,7 +62,7 @@ class FirstTabScreen extends Component {
       screen: 'example.Happening',
       title: happening.name,
       animated: true,
-      passProps: { happening }
+      passProps: { happening: happening }
     });
   }
 
@@ -70,6 +71,7 @@ class FirstTabScreen extends Component {
   }
 
   _selectHappening(happening) {
+    this.props.actions.setSelectedHappening(happening);
     this._navigateToHappening(happening);
   }
 
@@ -100,6 +102,7 @@ var styles = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    actions: bindActionCreators(actions, dispatch)
   };
 };
 
