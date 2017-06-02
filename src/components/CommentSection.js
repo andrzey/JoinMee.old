@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { FlatList, View, TextInput, Text, TouchableHighlight, StyleSheet } from 'react-native';
 
-class CommentField extends Component {
+import CommentListItem from './CommentListItem';
+
+class CommentSection extends Component {
     constructor(props) {
         super(props);
 
@@ -13,6 +15,7 @@ class CommentField extends Component {
     }
 
     render() {
+        console.log(this.props.comment);
         return (
             <View style={styles.container}>
                 <TextInput
@@ -24,6 +27,11 @@ class CommentField extends Component {
                 <TouchableHighlight style={styles.touchableContainer} onPress={this.props.onPress}>
                     <Text style={styles.buttonText}>Kommenter</Text>
                 </TouchableHighlight>
+                <FlatList
+                    keyExtractor={(item) => item.id}
+                    data={this.props.comments}
+                    renderItem={({ item }) => <CommentListItem comment={item.comment} />}
+                />
             </View>
         );
     }
@@ -47,4 +55,4 @@ var styles = StyleSheet.create({
     }
 });
 
-export default CommentField;
+export default CommentSection;

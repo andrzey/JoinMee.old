@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { FlatList, View, Text, StyleSheet } from 'react-native'
+import { FlatList, View, Text, StyleSheet, AlertIOS, AlertAndroid, Platform } from 'react-native'
 
-import CommentField from './CommentField';
+import CommentSection from './CommentSection';
 import CommentListItem from './CommentListItem';
+import ParticipationButton from './ParticipationButton';
 import * as actions from '../actions/happening.actions';
 import * as listActions from '../actions/happening-list.actions';
 
@@ -19,6 +20,7 @@ class Happening extends Component {
         this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
         this._onChangeComment = this._onChangeComment.bind(this);
         this._addComment = this._addComment.bind(this);
+        this._joinHappening = this._joinHappening.bind(this);
     }
 
     _onNavigatorEvent(event) {
@@ -32,7 +34,18 @@ class Happening extends Component {
     }
 
     _addComment() {
+        if(!this.state.comment) return;
+
         this.props.actions.addComment(this.props.happening.id, this.state.comment);
+        this.setState({ comment: null })
+    }
+
+    _joinHappening() {
+        if (Platform.OS === 'ios') {
+            AlertIOS.alert('Du blir med!');
+        } else {
+            AlertAndroid.alert('Du blir med');
+        }
     }
 
     render() {
@@ -44,15 +57,12 @@ class Happening extends Component {
                     <Text style={styles.text}>{this.props.happening.place}</Text>
                     <Text style={styles.text}>{this.props.happening.description}</Text>
                 </View>
-                <CommentField
+                <ParticipationButton onPress={this._joinHappening} />
+                <CommentSection
                     onChangeComment={this._onChangeComment}
-                    text={this.state.comment}
+                    comment={this.state.comment}
                     onPress={this._addComment}
-                />
-                <FlatList
-                    keyExtractor={(item) => item.id}
-                    data={this.props.happening.comments}
-                    renderItem={({ item }) => <CommentListItem comment={item.comment} />}
+                    comments={this.props.happening.comments}
                 />
             </View>
         );
