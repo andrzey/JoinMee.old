@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FlatList, View, Text, StyleSheet } from 'react-native'
 
-import CommentSection from './comment-section';
+import CommentField from './CommentField'; 
 import * as actions from '../actions/happening.actions';
 import * as listActions from '../actions/happening-list.actions';
 
@@ -43,7 +43,7 @@ class Happening extends Component {
                     <Text style={styles.text}>{this.props.happening.place}</Text>
                     <Text style={styles.text}>{this.props.happening.description}</Text>
                 </View>
-                <CommentSection
+                <CommentField
                     onChangeComment={this._onChangeComment}
                     text={this.state.comment}
                     onPress={this._addComment}

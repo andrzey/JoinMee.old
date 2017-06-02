@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FlatList, View, TextInput, Text, TouchableHighlight, StyleSheet } from 'react-native';
 
-class CommentSection extends Component {
+class CommentField extends Component {
     constructor(props) {
         super(props);
 
@@ -47,4 +47,4 @@ var styles = StyleSheet.create({
     }
 });
 
-export default CommentSection;
+export default CommentField;
