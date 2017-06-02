@@ -35,22 +35,7 @@ class FirstTabScreen extends Component {
       if (event.id == 'add') {
         this.props.navigator.showModal({
           screen: "example.CreateModal",
-          title: "Modal",
-          passProps: {},
-          navigatorButtons: {
-            rightButtons: [{
-              id: 'save',
-              title: 'Save',
-              buttonFontSize: 14,
-              buttonFontWeight: '600'
-            }],
-            leftButtons: [{
-              id: 'cancel',
-              title: 'Cancel',
-              buttonFontSize: 14,
-              buttonFontWeight: '600'
-            }]
-          },
+          title: "Lag ny Happening",
           animationType: 'slide-up'
         });
       }
