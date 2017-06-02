@@ -3,7 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FlatList, View, Text, StyleSheet } from 'react-native'
 
-import CommentField from './CommentField'; 
+import CommentField from './CommentField';
+import CommentListItem from './CommentListItem';
 import * as actions from '../actions/happening.actions';
 import * as listActions from '../actions/happening-list.actions';
 
@@ -51,7 +52,7 @@ class Happening extends Component {
                 <FlatList
                     keyExtractor={(item) => item.id}
                     data={this.props.happening.comments}
-                    renderItem={({ item }) => <Text>{item.comment}</Text>}
+                    renderItem={({ item }) => <CommentListItem comment={item.comment} />}
                 />
             </View>
         );

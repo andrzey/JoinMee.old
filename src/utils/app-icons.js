@@ -12,6 +12,8 @@ const replaceSuffixPattern = /--(active|big|small|very-big)/g;
 const icons = {
     "ios-heart": [30, "#bbb"],
 
+    "ios-contact-outline": [30, "#000"],
+
     "ios-add": [30, "#bbb"],
     "ios-add--big": [50, "#bbb"],
 
