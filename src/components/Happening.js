@@ -15,8 +15,15 @@ class Happening extends Component {
             comment: null
         }
 
+        this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
         this._onChangeComment = this._onChangeComment.bind(this);
         this._addComment = this._addComment.bind(this);
+    }
+
+    _onNavigatorEvent(event) {
+        if (event.id === 'willDisappear') {
+            this.props.actions.updateHappening(this.props.happening);
+        }
     }
 
     _onChangeComment(text) {

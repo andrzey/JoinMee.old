@@ -18,19 +18,11 @@ const happeningListReducer = (state = initialState, action) => {
                     happening = action.happening
 
                     return happening;
+                } else {
+                    return happening;
                 }
             });
             return newState;
-        /*        case actionTypes.ADD_COMMENT:
-        
-                    const newState = state.map(happening => {
-                        if (happening.id === action.happeningId) {
-                            happening = Object.assign({}, happening, { comments: [...happening.comments, action.comment] });
-                            return happening;
-                        } else return happening;
-                    });
-        
-                    return newState;*/
         default:
             return state
     }
