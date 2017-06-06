@@ -15,7 +15,6 @@ class CommentSection extends Component {
     }
 
     render() {
-        console.log(this.props.comment);
         return (
             <View style={styles.container}>
                 <TextInput
@@ -41,11 +40,9 @@ var styles = StyleSheet.create({
     container: {
     },
     textInput: {
-        //flex: 1,
         height: 30,
     },
     touchableContainer: {
-        //flex: 1,
         height: 20
     },
     buttonText: {
