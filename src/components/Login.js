@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import FBSDK from 'react-native-fbsdk';
+
+import * as userActions from '../actions/user.actions';
 
 const { LoginButton, AccessToken, LoginManager, GraphRequest, GraphRequestManager } = FBSDK;
 
@@ -12,24 +16,10 @@ class Login extends Component {
     }
 
     _login() {
-        LoginManager.logInWithReadPermissions(['public_profile']).then(
-            function (result) {
-                if (result.isCancelled) {
-                    console.log('Login cancelled');
-                } else {
-                    console.log('Login success with permissions: '
-                        + result.grantedPermissions.toString());
+        const facebookToken = "EAAcDhQnAuaIBADGwHKgPXDYZAQVnce6u7niCAd5uNs5omrqd1aIATCdVavubyA4mKPqOE7pbcM7ei7unzlPZCHAxajxMYiv3NZACwYqbHsUopx5cAXeNXtriw3xZCLtIYbmS6wmR5weEuWOl901ZAgvfLIDsFGw5wyorkpWqaZCMIIliZA9HAE3XzBPFfQ5fRffYKJyNjxZBZBWC4BZAHRzFIXZAo08GjlIXeAZD";
+        console.log('Inne i komponenten');
 
-                    AccessToken.getCurrentAccessToken().then(
-                        (data) => {
-                            console.log(data.accessToken.toString())
-                        });
-                }
-            },
-            function (error) {
-                console.log('Login fail with error: ' + error);
-            }
-        );
+        this.props.actions.loginWithFacebook(facebookToken);
     }
 
     render() {
@@ -43,4 +33,15 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(userActions, dispatch)
+  };
+};
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
