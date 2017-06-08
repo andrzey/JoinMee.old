@@ -4,8 +4,8 @@ import * as actionTypes from '../actions/action-types';
 
 function* facebookLogin(action) {
     try {
-        const { accessToken } = yield loginService.loginWithFacebook(action.facebookToken);
-        yield put({ type: actionTypes.USER_FETCH_SUCCEEDED, accessToken });
+        const { accessToken, user } = yield loginService.loginWithFacebook(action.facebookToken);
+        yield put({ type: actionTypes.USER_FETCH_SUCCEEDED, accessToken, user });
     } catch (error) {
         console.log(error);
     }
