@@ -4,6 +4,8 @@ import { composeWithDevTools } from 'remote-redux-devtools';
 
 import rootReducer from '../reducers/root-reducer';
 import rootSaga from './root-saga';
+import { startAppMiddleware } from './startAppMiddleware';
+
 
 export default function configureStore(initialState) {
     const sagaMiddleware = createSagaMiddleware();
@@ -12,7 +14,7 @@ export default function configureStore(initialState) {
         rootReducer,
         initialState,
         composeWithDevTools(
-            applyMiddleware(sagaMiddleware)
+            applyMiddleware(sagaMiddleware, startAppMiddleware)
         )
     );
 
@@ -20,4 +22,3 @@ export default function configureStore(initialState) {
 
     return store;
 }
-
