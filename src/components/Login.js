@@ -7,34 +7,40 @@ import FBSDK from 'react-native-fbsdk';
 import * as userActions from '../actions/user.actions';
 import * as happeningActions from '../actions/happening.actions';
 
-const { LoginButton, AccessToken, LoginManager, GraphRequest, GraphRequestManager } = FBSDK;
+const { AccessToken, LoginManager } = FBSDK;
 
 class Login extends Component {
     constructor(props) {
         super(props);
 
         this._login = this._login.bind(this);
-        this._loadHappenings = this._loadHappenings.bind(this);
     }
 
     _login() {
-        const facebookToken = "EAAcDhQnAuaIBADGwHKgPXDYZAQVnce6u7niCAd5uNs5omrqd1aIATCdVavubyA4mKPqOE7pbcM7ei7unzlPZCHAxajxMYiv3NZACwYqbHsUopx5cAXeNXtriw3xZCLtIYbmS6wmR5weEuWOl901ZAgvfLIDsFGw5wyorkpWqaZCMIIliZA9HAE3XzBPFfQ5fRffYKJyNjxZBZBWC4BZAHRzFIXZAo08GjlIXeAZD";
+        let _this = this;
 
-        this.props.actions.loginWithFacebook(facebookToken);
-    }
-
-    _loadHappenings() {
-        this.props.actions.loadHappenings(this.props.accessToken);
+        LoginManager.logInWithReadPermissions(['public_profile']).then(
+            function (result) {
+                if (result.isCancelled) {
+                    console.log('Login cancelled');
+                } else {
+                    AccessToken.getCurrentAccessToken().then(
+                        (data) => {
+                            _this.props.actions.loginWithFacebook(data.accessToken);
+                        });
+                }
+            },
+            function (error) {
+                console.log('Login fail with error: ' + error);
+            }
+        );
     }
 
     render() {
         return (
-            <View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <TouchableHighlight onPress={this._login}>
                     <Text style={{ fontSize: 40 }}>Logg inn</Text>
-                </TouchableHighlight>
-                <TouchableHighlight onPress={this._loadHappenings}>
-                    <Text style={{ fontSize: 40 }}>La oss hente ting</Text>
                 </TouchableHighlight>
             </View>
         );
@@ -43,7 +49,7 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        actions: bindActionCreators(Object.assign({}, userActions, happeningActions), dispatch)
+        actions: bindActionCreators(userActions, dispatch)
     };
 };
 
