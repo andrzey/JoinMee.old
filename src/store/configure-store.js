@@ -4,7 +4,6 @@ import { composeWithDevTools } from 'remote-redux-devtools';
 
 import rootReducer from '../reducers/root-reducer';
 import rootSaga from './root-saga';
-import loginWithFacebookRequested from '../sagas/login.saga';
 
 export default function configureStore(initialState) {
     const sagaMiddleware = createSagaMiddleware();
@@ -17,7 +16,7 @@ export default function configureStore(initialState) {
         )
     );
 
-    sagaMiddleware.run(loginWithFacebookRequested)
+    sagaMiddleware.run(rootSaga)
 
     return store;
 }

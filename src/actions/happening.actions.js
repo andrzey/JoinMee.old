@@ -13,3 +13,10 @@ export function setSelectedHappening(happening) {
         happening
     }
 }
+
+export function loadHappenings(accessToken){
+    return {
+        type: actionTypes.HAPPENINGS_FETCH_REQUESTED,
+        accessToken
+    }
+}
