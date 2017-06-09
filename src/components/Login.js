@@ -18,7 +18,6 @@ class Login extends Component {
 
     _login() {
         let _this = this;
-
         LoginManager.logInWithReadPermissions(['public_profile']).then(
             function (result) {
                 if (result.isCancelled) {
