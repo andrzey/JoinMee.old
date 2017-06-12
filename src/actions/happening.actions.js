@@ -1,8 +1,10 @@
 import * as actionTypes from './action-types';
 
-export function addComment(happeningId, comment) {
+export function addComment(accessToken, happeningId, comment) {
     return {
-        type: actionTypes.ADD_COMMENT,
+        type: actionTypes.HAPPENING_ADD_COMMENT_REQUESTED,
+        accessToken,
+        happeningId,
         comment
     }
 }
@@ -14,7 +16,7 @@ export function setSelectedHappening(happening) {
     }
 }
 
-export function loadHappenings(accessToken){
+export function loadHappenings(accessToken) {
     return {
         type: actionTypes.HAPPENINGS_FETCH_REQUESTED,
         accessToken
