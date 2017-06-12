@@ -21,7 +21,6 @@ function* addComment(action) {
 }
 
 function* addHappening(action) {
-    console.log('inne i her')
     try {
         const happening = yield happeningService.addHappening(action.accessToken, action.happening);
         yield put({ type: actionTypes.ADD_HAPPENING_SUCCEEDED, happening });

@@ -6,7 +6,6 @@ import rootReducer from '../reducers/root-reducer';
 import rootSaga from './root-saga';
 import { startAppMiddleware } from './startAppMiddleware';
 
-
 export default function configureStore(initialState) {
     const sagaMiddleware = createSagaMiddleware();
 

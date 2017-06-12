@@ -33,7 +33,7 @@ class FirstTabScreen extends Component {
   componentDidMount(){
     this.props.actions.loadHappenings(this.props.accessToken);
   }
-
+  
   _onNavigatorEvent(event) {
     if (event.type == 'NavBarButtonPress') {
       if (event.id == 'add') {
