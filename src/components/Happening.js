@@ -34,9 +34,9 @@ class Happening extends Component {
     }
 
     _addComment() {
-        if(!this.state.comment) return;
+        if (!this.state.comment) return;
 
-        this.props.actions.addComment(this.props.happening.id, this.state.comment);
+        this.props.actions.addComment(this.props.accessToken, this.props.happening.id, this.state.comment);
         this.setState({ comment: null })
     }
 
@@ -88,7 +88,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        happening: state.selectedHappening
+        happening: state.selectedHappening,
+        accessToken: state.user.accessToken
     };
 }
 
