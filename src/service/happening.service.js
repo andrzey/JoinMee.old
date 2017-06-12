@@ -39,3 +39,22 @@ export function addComment(accessToken, happeningId, comment) {
             });
     });
 }
+
+export function addHappening(accessToken, happening) {
+    return new Promise((resolve, reject) => {
+        if (!accessToken) return reject('Accesstoken not provided');
+        if (!happening) return reject('Happening not provided');
+
+        const url = `${apiUrl}addHappening`;
+
+        axios.defaults.headers.common['Authorization'] = accessToken;
+
+        axios.post(url, { happening })
+            .then(response => {
+                resolve(response.data.happening);
+            })
+            .catch(error => {
+                reject(error)
+            });
+    });
+}

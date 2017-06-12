@@ -2,18 +2,16 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Text, View, StyleSheet, TextInput, Platform } from 'react-native';
-import uuid from 'react-native-uuid';
 
 import { iconsMap } from '../utils/app-icons';
-import * as actions from '../actions/happening-list.actions';
+import * as actions from '../actions/happening.actions';
 
 class CreateModal extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            id: uuid.v4(),
-            name: null,
+            title: null,
             time: null,
             place: null,
             description: null
@@ -50,7 +48,8 @@ class CreateModal extends Component {
                     animationType: 'slide-down'
                 });
             } else if (event.id == 'save') {
-                this.props.actions.addHappening(this.state);
+                this.props.actions.addHappening(this.props.accessToken, this.state);
+                this.props.actions.loadHappenings(this.props.accessToken);
                 this.props.navigator.dismissModal({
                     animationType: 'slide-down'
                 });
@@ -65,8 +64,8 @@ class CreateModal extends Component {
                     style={styles.textInput}
                     multiline={false}
                     placeholder='Arrangement navn'
-                    onChangeText={(name) => this.setState({ name })}
-                    value={this.state.name}
+                    onChangeText={(title) => this.setState({ title })}
+                    value={this.state.title}
                 />
                 <TextInput
                     style={styles.textInput}
@@ -119,6 +118,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        accessToken: state.user.accessToken
     };
 }
 

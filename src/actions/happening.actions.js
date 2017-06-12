@@ -22,3 +22,12 @@ export function loadHappenings(accessToken) {
         accessToken
     }
 }
+
+export function addHappening(accessToken, happening) {
+    console.log('er vi inn her engang')
+    return {
+        type: actionTypes.ADD_HAPPENING_REQUESTED,
+        accessToken,
+        happening
+    }
+}
