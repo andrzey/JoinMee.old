@@ -30,6 +30,10 @@ class FirstTabScreen extends Component {
     this._selectHappening = this._selectHappening.bind(this);
   }
 
+  componentDidMount(){
+    this.props.actions.loadHappenings(this.props.accessToken);
+  }
+
   _onNavigatorEvent(event) {
     if (event.type == 'NavBarButtonPress') {
       if (event.id == 'add') {
@@ -93,7 +97,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    happenings: state.happenings
+    happenings: state.happenings,
+    accessToken: state.user.accessToken
   };
 }
 
