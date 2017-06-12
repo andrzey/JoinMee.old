@@ -30,3 +30,12 @@ export function addHappening(accessToken, happening) {
         happening
     }
 }
+
+export function joinHappening(accessToken, name, happeningId){
+    return {
+        type: actionTypes.JOIN_HAPPENING_REQUESTED,
+        accessToken,
+        name,
+        happeningId
+    }
+}

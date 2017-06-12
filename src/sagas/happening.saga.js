@@ -29,6 +29,15 @@ function* addHappening(action) {
     }
 }
 
+function* joinHappening(action) {
+    try {
+        const happening = yield happeningService.joinHappening(action.accessToken, action.name, action.happeningId);
+        yield put({ type: actionTypes.JOIN_HAPPENING_SUCCEEDED, happening });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 function* loadHappeningsRequested() {
     yield takeEvery(actionTypes.HAPPENINGS_FETCH_REQUESTED, loadHappenings);
 }
@@ -38,11 +47,16 @@ function* addCommentRequested() {
 }
 
 function* addHappeningRequested() {
-    yield takeLatest(actionTypes.ADD_HAPPENING_REQUESTED, addHappening)
+    yield takeLatest(actionTypes.ADD_HAPPENING_REQUESTED, addHappening);
+}
+
+function* joinHappeningRequested() {
+    yield takeLatest(actionTypes.JOIN_HAPPENING_REQUESTED, joinHappening);
 }
 
 export default [
     loadHappeningsRequested(),
     addCommentRequested(),
-    addHappeningRequested()
+    addHappeningRequested(),
+    joinHappeningRequested()
 ]

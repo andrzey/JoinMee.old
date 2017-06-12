@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import * as _ from 'lodash';
 import { FlatList, View, Text, StyleSheet, AlertIOS, AlertAndroid, Platform } from 'react-native'
 
 import CommentSection from './CommentSection';
@@ -41,14 +42,16 @@ class Happening extends Component {
     }
 
     _joinHappening() {
-        if (Platform.OS === 'ios') {
-            AlertIOS.alert('Du blir med!');
-        } else {
-            AlertAndroid.alert('Du blir med');
-        }
+        this.props.actions.joinHappening(this.props.accessToken, this.props.name, this.props.happening.id);
     }
 
     render() {
+        const isAttending = _.filter(this.props.participants, (participant) => {
+            return participant.name === this.props.name;
+        });
+
+        const something = (isAttending) ? true : false;
+
         return (
             <View style={styles.container}>
                 <View>
@@ -57,7 +60,7 @@ class Happening extends Component {
                     <Text style={styles.text}>{this.props.happening.place}</Text>
                     <Text style={styles.text}>{this.props.happening.description}</Text>
                 </View>
-                <ParticipationButton onPress={this._joinHappening} />
+                <ParticipationButton isAttending={false} onPress={this._joinHappening} />
                 <CommentSection
                     onChangeComment={this._onChangeComment}
                     comment={this.state.comment}
@@ -88,7 +91,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        name: state.user.name,
         happening: state.selectedHappening,
+        participants: state.selectedHappening.participants,
         accessToken: state.user.accessToken
     };
 }

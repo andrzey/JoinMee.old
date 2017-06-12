@@ -49,7 +49,27 @@ export function addHappening(accessToken, happening) {
 
         axios.defaults.headers.common['Authorization'] = accessToken;
 
-        axios.post(url, { happening })
+        axios.post(url, happening)
+            .then(response => {
+                resolve(response.data.happening);
+            })
+            .catch(error => {
+                reject(error)
+            });
+    });
+}
+
+export function joinHappening(accessToken, name, happeningId) {
+    return new Promise((resolve, reject) => {
+        if (!accessToken) return reject('Accesstoken not provided');
+        if (!name) return reject('Name not provided');
+        if (!happeningId) return reject('HappeningId not provided');
+
+        const url = `${apiUrl}joinHappening`;
+
+        axios.defaults.headers.common['Authorization'] = accessToken;
+
+        axios.post(url, { name, happeningId })
             .then(response => {
                 resolve(response.data.happening);
             })
