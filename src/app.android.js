@@ -13,7 +13,9 @@ registerScreens(store, Provider);
 
 export default () => {
     if (state.user.accessToken) {
-        startTabBasedApp()
+        iconsLoaded.then(() => {
+            startTabBasedApp()
+        });
     } else {
         iconsLoaded.then(() => {
             Navigation.startSingleScreenApp({
