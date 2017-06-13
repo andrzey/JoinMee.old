@@ -12,7 +12,7 @@ class HappeningListItem extends Component {
         return (
             <TouchableHighlight onPress={this._onPress}>
                 <View style={styles.container}>
-                    <Text style={styles.text}>{happening.name}</Text>
+                    <Text style={styles.text}>{happening.title}</Text>
                     <Text style={styles.text}>{happening.time}</Text>
                     <Text style={styles.text}>{happening.place}</Text>
                     <Text style={styles.text}>{happening.description}</Text>
