@@ -68,7 +68,7 @@ class CreateModal extends Component {
                                 borderWidth: 0,
                                 alignItems: 'flex-start',
                                 marginLeft: 5
-                            },
+                            }
                         }
                     }
                     minuteInterval={30}

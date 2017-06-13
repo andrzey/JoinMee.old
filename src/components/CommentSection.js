@@ -40,7 +40,7 @@ var styles = StyleSheet.create({
     container: {
     },
     textInput: {
-        height: 30,
+        height: 40,
     },
     touchableContainer: {
         height: 20
