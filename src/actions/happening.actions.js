@@ -39,3 +39,12 @@ export function joinHappening(accessToken, name, happeningId){
         happeningId
     }
 }
+
+export function leaveHappening(accessToken, name, happeningId){
+    return {
+        type: actionTypes.LEAVE_HAPPENING_REQUESTED,
+        accessToken,
+        name,
+        happeningId
+    }
+}
