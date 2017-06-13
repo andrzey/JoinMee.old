@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Text, View, StyleSheet, TextInput, Platform } from 'react-native';
+import DatePicker from 'react-native-datepicker'
+import Moment from 'moment'
 
 import { iconsMap } from '../utils/app-icons';
 import * as actions from '../actions/happening.actions';
@@ -12,7 +14,7 @@ class CreateModal extends Component {
 
         this.state = {
             title: null,
-            time: null,
+            time: Moment().format('dddd D MMM HH:mm'),
             place: null,
             description: null
         };
@@ -41,21 +43,6 @@ class CreateModal extends Component {
         })
         this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
     }
-    _onNavigatorEvent(event) {
-        if (event.type == 'NavBarButtonPress') {
-            if (event.id == 'cancel') {
-                this.props.navigator.dismissModal({
-                    animationType: 'slide-down'
-                });
-            } else if (event.id == 'save') {
-                this.props.actions.addHappening(this.props.accessToken, this.state);
-                this.props.actions.loadHappenings(this.props.accessToken);
-                this.props.navigator.dismissModal({
-                    animationType: 'slide-down'
-                });
-            }
-        }
-    }
 
     render() {
         return (
@@ -67,12 +54,26 @@ class CreateModal extends Component {
                     onChangeText={(title) => this.setState({ title })}
                     value={this.state.title}
                 />
-                <TextInput
-                    style={styles.textInput}
-                    multiline={false}
-                    placeholder='Tid'
-                    onChangeText={(time) => this.setState({ time })}
-                    value={this.state.time}
+                <DatePicker
+                    style={{ width: 200 }}
+                    date={this.state.time}
+                    mode='datetime'
+                    format='dddd D MMMM HH:mm'
+                    confirmBtnText='Ok'
+                    cancelBtnText='Avbryt'
+                    showIcon={false}
+                    customStyles={
+                        {
+                            dateInput: {
+                                borderWidth: 0,
+                                alignItems: 'flex-start',
+                                marginLeft: 5
+                            },
+                        }
+                    }
+                    minuteInterval={30}
+                    is24Hour={true}
+                    onDateChange={(time) => { this.setState({ time }); }}
                 />
                 <TextInput
                     style={styles.textInput}
@@ -91,12 +92,27 @@ class CreateModal extends Component {
             </View>
         );
     }
+
+    _onNavigatorEvent(event) {
+        if (event.type == 'NavBarButtonPress') {
+            if (event.id == 'cancel') {
+                this.props.navigator.dismissModal({
+                    animationType: 'slide-down'
+                });
+            } else if (event.id == 'save') {
+                this.props.actions.addHappening(this.props.accessToken, this.state);
+                this.props.actions.loadHappenings(this.props.accessToken);
+                this.props.navigator.dismissModal({
+                    animationType: 'slide-down'
+                });
+            }
+        }
+    }
 }
 
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
         backgroundColor: 'white'
     },
     textInput: {
