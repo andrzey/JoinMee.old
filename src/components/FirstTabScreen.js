@@ -28,12 +28,41 @@ class FirstTabScreen extends Component {
     this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
     this._navigateToHappening = this._navigateToHappening.bind(this);
     this._selectHappening = this._selectHappening.bind(this);
+    this._loadHappenings = this._loadHappenings.bind(this);
   }
 
-  componentDidMount(){
+  render() {
+    const refreshing = this.props.pendingTasks > 0 ? true : false;
+
+    return (
+      <View style={styles.container}>
+        <FlatList
+          onRefresh={() => this._loadHappenings()}
+          refreshing={refreshing}
+          keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={this._renderSeparator}
+          data={this.props.happenings}
+          renderItem={({ item }) => <HappeningListItem onPress={this._selectHappening} happening={item} />}
+        />
+      </View>
+    );
+  }
+
+  componentDidMount() {
+    this._loadHappenings();
+    if (!this.props.interests || this.props.interests.length === 0) {
+      this.props.navigator.showModal({
+        screen: "example.InterestsModal",
+        title: "Velg Interesser",
+        animationType: 'slide-up'
+      });
+    }
+  }
+
+  _loadHappenings() {
     this.props.actions.loadHappenings(this.props.accessToken);
   }
-  
+
   _onNavigatorEvent(event) {
     if (event.type == 'NavBarButtonPress') {
       if (event.id == 'add') {
@@ -63,19 +92,6 @@ class FirstTabScreen extends Component {
     this.props.actions.setSelectedHappening(happening);
     this._navigateToHappening(happening);
   }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <FlatList
-          keyExtractor={(item) => item.id}
-          ItemSeparatorComponent={this._renderSeparator}
-          data={this.props.happenings}
-          renderItem={({ item }) => <HappeningListItem onPress={this._selectHappening} happening={item} />}
-        />
-      </View>
-    );
-  }
 }
 
 var styles = StyleSheet.create({
@@ -98,7 +114,9 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     happenings: state.happenings,
-    accessToken: state.user.accessToken
+    accessToken: state.user.accessToken,
+    pendingTasks: state.user.pendingTasks,
+    interests: state.user.interests
   };
 }
 
