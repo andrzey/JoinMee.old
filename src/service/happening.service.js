@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:8080/api/';
+//const apiUrl = 'http://localhost:8080/api/';
+const apiUrl = 'http://10.0.1.193:8080/api/';
 
 export function loadHappenings(accessToken) {
     return new Promise((resolve, reject) => {
