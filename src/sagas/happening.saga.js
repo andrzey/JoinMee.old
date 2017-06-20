@@ -1,14 +1,17 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as happeningService from '../service/happening.service';
 import * as actionTypes from '../actions/action-types';
+import { startSaga, endSaga } from '../utils/action.utils';
 
 function* loadHappenings(action) {
+    yield put(startSaga);
     try {
         const happeningList = yield happeningService.loadHappenings(action.accessToken)
         yield put({ type: actionTypes.HAPPENINGS_FETCH_SUCCEEDED, happenings: happeningList });
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
+    yield put(endSaga);
 }
 
 function* addComment(action) {
@@ -16,7 +19,7 @@ function* addComment(action) {
         const updatedHappening = yield happeningService.addComment(action.accessToken, action.happeningId, action.comment);
         yield put({ type: actionTypes.HAPPENING_ADD_COMMENT_SUCCEEDED, happening: updatedHappening });
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
@@ -25,7 +28,7 @@ function* addHappening(action) {
         const happening = yield happeningService.addHappening(action.accessToken, action.happening);
         yield put({ type: actionTypes.ADD_HAPPENING_SUCCEEDED, happening });
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
@@ -34,7 +37,7 @@ function* joinHappening(action) {
         const happening = yield happeningService.joinHappening(action.accessToken, action.name, action.happeningId);
         yield put({ type: actionTypes.JOIN_HAPPENING_SUCCEEDED, happening });
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
@@ -43,7 +46,7 @@ function* leaveHappening(action) {
         const happening = yield happeningService.leaveHappening(action.accessToken, action.name, action.happeningId);
         yield put({ type: actionTypes.LEAVE_HAPPENING_SUCCEEDED, happening });
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
