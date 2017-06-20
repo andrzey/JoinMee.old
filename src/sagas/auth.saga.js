@@ -1,18 +1,21 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
-import * as loginService from '../service/login.service';
+import { startSaga, endSaga } from '../utils/action.utils';
+import * as authService from '../service/auth.service';
 import * as actionTypes from '../actions/action-types';
 
 function* facebookLogin(action) {
+    yield put(startSaga);
     try {
-        const { accessToken, user } = yield loginService.loginWithFacebook(action.facebookToken);
+        const { accessToken, user } = yield authService.loginWithFacebook(action.facebookToken);
         yield put({ type: actionTypes.USER_FETCH_SUCCEEDED, accessToken, user });
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
+    yield put(endSaga);
 }
 
 function* loginWithFacebookRequested() {
-    yield takeEvery(actionTypes.USER_FETCH_REQUESTED, facebookLogin)
+    yield takeEvery(actionTypes.USER_FETCH_REQUESTED, facebookLogin);
 }
 
 export default [

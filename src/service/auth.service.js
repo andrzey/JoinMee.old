@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-//const authUrl = 'http://localhost:8080/auth/';
 const authUrl = 'http://10.0.1.193:8080/auth/';
 
 export function loginWithFacebook(facebookToken) {
