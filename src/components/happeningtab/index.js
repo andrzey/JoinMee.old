@@ -79,8 +79,7 @@ class FirstTabScreen extends Component {
     this.props.navigator.push({
       screen: 'example.Happening',
       title: happening.title,
-      animated: true,
-      passProps: { happening: happening }
+      animated: true
     });
   }
 
