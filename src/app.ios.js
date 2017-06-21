@@ -35,7 +35,7 @@ export function startTabBasedApp() {
         tabs: [
             {
                 label: 'Happenings',
-                screen: 'example.FirstTabScreen',
+                screen: 'example.HappeningTab',
                 icon: iconsMap['ios-heart'],
                 title: 'Happenings'
             },

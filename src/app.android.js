@@ -34,12 +34,12 @@ export default () => {
 export function startTabBasedApp() {
     Navigation.startSingleScreenApp({
         screen: {
-            screen: 'example.FirstTabScreen',
+            screen: 'example.HappeningTab',
             title: 'App',
             navigatorStyle: {},
             topTabs: [
                 {
-                    screenId: 'example.FirstTabScreen',
+                    screenId: 'example.HappeningTab',
                     title: 'Happenings'
                 },
                 {

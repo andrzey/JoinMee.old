@@ -7,8 +7,8 @@ import { FlatList, View, Text, StyleSheet, Alert, AlertAndroid, Platform } from 
 import CommentSection from './CommentSection';
 import CommentListItem from './CommentListItem';
 import ParticipationButton from './ParticipationButton';
-import * as actions from '../actions/happening.actions';
-import * as listActions from '../actions/happening-list.actions';
+import * as actions from '../../actions/happening.actions';
+import * as listActions from '../../actions/happening-list.actions';
 
 class Happening extends Component {
     constructor(props) {

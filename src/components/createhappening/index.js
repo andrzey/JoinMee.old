@@ -5,8 +5,8 @@ import { Text, View, StyleSheet, TextInput, Platform } from 'react-native';
 import DatePicker from 'react-native-datepicker'
 import Moment from 'moment'
 
-import { iconsMap } from '../utils/app-icons';
-import * as actions from '../actions/happening.actions';
+import { iconsMap } from '../../utils/app-icons';
+import * as actions from '../../actions/happening.actions';
 
 class CreateModal extends Component {
     constructor(props) {

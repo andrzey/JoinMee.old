@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Text, Platform, View, FlatList, StyleSheet } from 'react-native';
 
-import { iconsMap } from '../utils/app-icons';
-import * as actions from '../actions/happening.actions';
+import { iconsMap } from '../../utils/app-icons';
+import * as actions from '../../actions/happening.actions';
 import HappeningListItem from './HappeningListItem';
 
 class FirstTabScreen extends Component {
@@ -50,9 +50,9 @@ class FirstTabScreen extends Component {
 
   componentDidMount() {
     this._loadHappenings();
-    if (!this.props.interests || this.props.interests.length === 0) {
+    if (!this.props.interests || this.props.interests.length < 10) {
       this.props.navigator.showModal({
-        screen: "example.InterestsModal",
+        screen: "example.Interests",
         title: "Velg Interesser",
         animationType: 'slide-up'
       });
@@ -67,7 +67,7 @@ class FirstTabScreen extends Component {
     if (event.type == 'NavBarButtonPress') {
       if (event.id == 'add') {
         this.props.navigator.showModal({
-          screen: "example.CreateModal",
+          screen: "example.CreateHappening",
           title: "Lag ny Happening",
           animationType: 'slide-up'
         });

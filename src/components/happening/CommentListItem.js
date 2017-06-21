@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, View, Text } from 'react-native';
 
-import { iconsMap } from '../utils/app-icons';
+import { iconsMap } from '../../utils/app-icons';
 
 const CommentListItem = (props) => {
     return (
