@@ -8,7 +8,14 @@ class InterestsButton extends Component {
         this.state = {
             isPressed: false
         }
+
         this._onPress = this._onPress.bind(this);
+    }
+
+    componentWillMount() {
+        if (this.props.isPressed) {
+            this.setState({ isPressed: true });
+        }
     }
 
     render() {
