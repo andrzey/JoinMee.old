@@ -14,6 +14,17 @@ function* loadHappenings(action) {
     yield put(endSaga);
 }
 
+function* loadMyHappenings(action) {
+    yield put(startSaga);
+    try {
+        const happeningList = yield happeningService.loadMyHappenings(action.accessToken)
+        yield put({ type: actionTypes.USER_HAPPENINGS_FETCH_SUCCEEDED, happenings: happeningList });
+    } catch (error) {
+        console.error(error);
+    }
+    yield put(endSaga);
+}
+
 function* addComment(action) {
     try {
         const updatedHappening = yield happeningService.addComment(action.accessToken, action.happeningId, action.comment);
@@ -54,6 +65,10 @@ function* loadHappeningsRequested() {
     yield takeEvery(actionTypes.HAPPENINGS_FETCH_REQUESTED, loadHappenings);
 }
 
+function* loadMyHappeningsRequested() {
+    yield takeEvery(actionTypes.USER_HAPPENINGS_FETCH_REQUESTED, loadMyHappenings);
+}
+
 function* addCommentRequested() {
     yield takeLatest(actionTypes.HAPPENING_ADD_COMMENT_REQUESTED, addComment);
 }
@@ -75,5 +90,6 @@ export default [
     addCommentRequested(),
     addHappeningRequested(),
     joinHappeningRequested(),
-    leaveHappeningRequested()
+    leaveHappeningRequested(),
+    loadMyHappeningsRequested()
 ]

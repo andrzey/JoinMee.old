@@ -23,6 +23,13 @@ export function loadHappenings(accessToken) {
     }
 }
 
+export function loadMyHappenings(accessToken) {
+    return {
+        type: actionTypes.USER_HAPPENINGS_FETCH_REQUESTED,
+        accessToken
+    }
+}
+
 export function addHappening(accessToken, happening) {
     return {
         type: actionTypes.ADD_HAPPENING_REQUESTED,
@@ -31,7 +38,7 @@ export function addHappening(accessToken, happening) {
     }
 }
 
-export function joinHappening(accessToken, name, happeningId){
+export function joinHappening(accessToken, name, happeningId) {
     return {
         type: actionTypes.JOIN_HAPPENING_REQUESTED,
         accessToken,
@@ -40,7 +47,7 @@ export function joinHappening(accessToken, name, happeningId){
     }
 }
 
-export function leaveHappening(accessToken, name, happeningId){
+export function leaveHappening(accessToken, name, happeningId) {
     return {
         type: actionTypes.LEAVE_HAPPENING_REQUESTED,
         accessToken,

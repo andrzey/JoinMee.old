@@ -3,6 +3,24 @@ import axios from 'axios';
 //const apiUrl = 'http://localhost:8080/api/';
 const apiUrl = 'http://10.0.1.193:8080/api/';
 
+export function loadMyHappenings(accessToken) {
+    return new Promise((resolve, reject) => {
+        if (!accessToken) return reject('Accesstoken not provided');
+
+        const url = `${apiUrl}loadmyhappenings`;
+
+        axios.defaults.headers.common['Authorization'] = accessToken;
+
+        axios.get(url)
+            .then(response => {
+                resolve(response.data.happenings)
+            })
+            .catch(error => {
+                reject(error)
+            });
+    });
+}
+
 export function loadHappenings(accessToken) {
     return new Promise((resolve, reject) => {
         if (!accessToken) return reject('Accesstoken not provided');
