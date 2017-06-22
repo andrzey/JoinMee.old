@@ -16,7 +16,8 @@ class CreateModal extends Component {
             title: null,
             time: Moment().format('dddd D MMM HH:mm'),
             place: null,
-            description: null
+            description: null,
+            creator: this.props.userId
         };
 
         this.props.navigator.setButtons({
@@ -134,7 +135,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        accessToken: state.user.accessToken
+        accessToken: state.user.accessToken,
+        userId: state.user.userId
     };
 }
 
