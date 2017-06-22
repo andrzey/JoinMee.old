@@ -21,7 +21,7 @@ const happeningListReducer = (state = initialState, action) => {
             return newState;
         case actionTypes.HAPPENINGS_FETCH_SUCCEEDED:
             {
-                const newState = Object.assign([], state, action.happenings);
+                const newState = action.happenings;
                 return newState;
             }
         default:

@@ -37,7 +37,7 @@ class FirstTabScreen extends Component {
     return (
       <View style={styles.container}>
         <FlatList
-          onRefresh={() => this._loadHappenings()}
+          onRefresh={this._loadHappenings}
           refreshing={refreshing}
           keyExtractor={(item) => item.id}
           ItemSeparatorComponent={this._renderSeparator}
@@ -50,6 +50,7 @@ class FirstTabScreen extends Component {
 
   componentDidMount() {
     this._loadHappenings();
+
     if (!this.props.interests || this.props.interests.length < 10) {
       this.props.navigator.showModal({
         screen: "example.Interests",
