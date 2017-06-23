@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, StyleSheet, Platform } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 
 class InterestsButton extends Component {
     constructor(props) {
@@ -22,12 +22,12 @@ class InterestsButton extends Component {
         const backgroundColor = (this.state.isPressed) ? { backgroundColor: '#006400' } : { backgroundColor: 'lightblue' };
 
         return (
-            <TouchableHighlight
+            <TouchableOpacity
                 onPress={this._onPress}
                 style={[styles.container, backgroundColor]}
                 underlayColor='#006400'>
                 <Text style={styles.text}>{this.props.text}</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
         );
     }
 

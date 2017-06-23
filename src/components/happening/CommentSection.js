@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View, TextInput, Text, TouchableHighlight, StyleSheet } from 'react-native';
+import { FlatList, View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 import CommentListItem from './CommentListItem';
 
@@ -23,9 +23,9 @@ class CommentSection extends Component {
                     onChangeText={(comment) => this._onChangeComment(comment)}
                     value={this.props.comment}
                 />
-                <TouchableHighlight style={styles.touchableContainer} onPress={this.props.onPress}>
+                <TouchableOpacity style={styles.touchableContainer} onPress={this.props.onPress}>
                     <Text style={styles.buttonText}>Kommenter</Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
                 <FlatList
                     keyExtractor={(item) => item.id}
                     data={this.props.comments}
