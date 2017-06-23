@@ -10,7 +10,21 @@ import HappeningListItem from '../happeningtab/HappeningListItem';
 class SecondTabScreen extends Component {
   constructor(props) {
     super(props);
+    this.props.navigator.setButtons({
+      rightButtons: [{
+        id: 'settings',
+        ...Platform.select({
+          ios: {
+            icon: iconsMap['ios-settings'],
+          },
+          android: {
+            icon: iconsMap['settings']
+          },
+        })
+      }]
+    })
 
+    this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
     this._navigateToHappening = this._navigateToHappening.bind(this);
     this._selectHappening = this._selectHappening.bind(this);
     this._loadMyHappenings = this._loadMyHappenings.bind(this);
@@ -37,6 +51,19 @@ class SecondTabScreen extends Component {
     this._loadMyHappenings();
   }
 
+  _onNavigatorEvent(event) {
+    if (event.type == 'NavBarButtonPress') {
+      if (event.id == 'settings') {
+        this.props.navigator.push({
+          screen: 'example.Settings',
+          title: 'Settings', 
+          animated: true,
+          animationType: 'slide-horizontal',
+          navigatorButtons: {}
+        });
+      }
+    }
+  }
 
   _loadMyHappenings() {
     this.props.actions.loadMyHappenings(this.props.accessToken);

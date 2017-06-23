@@ -11,8 +11,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 const replaceSuffixPattern = /--(active|big|small|very-big)/g;
 const icons = {
     "ios-heart": [30, "#bbb"],
-
     "ios-contact-outline": [30, "#000"],
+    "ios-settings":[25, "#bbb"],
 
     "ios-add": [30, "#bbb"],
     "ios-add--big": [50, "#bbb"],
@@ -27,18 +27,10 @@ const icons = {
     "ios-people": [30, "#bbb"],
     "ios-people--active": [30, "#fff"],
 
-    "ios-keypad": [30, "#bbb"],
-    "ios-keypad--active": [30, "#fff"],
-
-    "ios-chatbubbles": [30, "#bbb"],
-    "ios-chatbubbles--active": [30, "#fff"],
-
-    // Use other Icon provider, see the logic at L39
-    "facebook": [30, "#bbb", FontAwesome],
-    "facebook--active": [30, "#fff", FontAwesome],
-
     "done": [30, "#000000", MaterialIcons],
-    "add": [30, "#000000", MaterialIcons]
+    "add": [30, "#000000", MaterialIcons],
+    "settings": [30, "#000000", MaterialIcons]
+
 }
 
 const defaultIconProvider = Ionicons;
