@@ -50,14 +50,6 @@ class FirstTabScreen extends Component {
 
   componentDidMount() {
     this._loadHappenings();
-
-    if (!this.props.interests || this.props.interests.length < 10) {
-      this.props.navigator.showModal({
-        screen: "example.Interests",
-        title: "Velg Interesser",
-        animationType: 'slide-up'
-      });
-    }
   }
 
   _loadHappenings() {
