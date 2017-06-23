@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableHighlight } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import FBSDK from 'react-native-fbsdk';
@@ -14,6 +14,20 @@ class Login extends Component {
         super(props);
 
         this._login = this._login.bind(this);
+    }
+
+    render() {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <TouchableOpacity onPress={this._login}>
+                    <Text style={{ fontSize: 40 }}>Logg inn</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+
+    componentDidMount() {
+        this._login();
     }
 
     _login() {
@@ -32,16 +46,6 @@ class Login extends Component {
             function (error) {
                 console.log('Login fail with error: ' + error);
             }
-        );
-    }
-
-    render() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <TouchableHighlight onPress={this._login}>
-                    <Text style={{ fontSize: 40 }}>Logg inn</Text>
-                </TouchableHighlight>
-            </View>
         );
     }
 }
