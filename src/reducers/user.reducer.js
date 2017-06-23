@@ -16,7 +16,8 @@ export default function userReducer(state = initialState, action) {
                 userId: action.user.facebookId,
                 name: action.user.firstName,
                 accessToken: action.accessToken,
-                interests: action.user.interests
+                interests: action.user.interests,
+                profilePicture: action.user.profilePicture
             }
 
             return Object.assign({}, state, user);
