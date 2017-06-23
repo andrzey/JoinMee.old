@@ -43,7 +43,7 @@ export function startTabBasedApp() {
                 label: 'Min Side',
                 screen: 'example.MyPageTab',
                 icon: iconsMap['ios-person--active'],
-                title: 'Min Side'
+                title: 'Mine Happenings'
             }
         ]
     });
