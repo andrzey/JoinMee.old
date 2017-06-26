@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Text, Platform, View, FlatList, StyleSheet } from 'react-native';
+import { SearchBar } from 'react-native-elements'
 
 import { iconsMap } from '../../utils/app-icons';
 import * as actions from '../../actions/happening.actions';
@@ -40,6 +41,7 @@ class FirstTabScreen extends Component {
           onRefresh={this._loadHappenings}
           refreshing={refreshing}
           keyExtractor={(item) => item.id}
+          ListHeaderComponent={this._renderHeader}
           ItemSeparatorComponent={this._renderSeparator}
           data={this.props.happenings}
           renderItem={({ item }) => <HappeningListItem onPress={this._selectHappening} happening={item} />}
@@ -76,7 +78,16 @@ class FirstTabScreen extends Component {
     });
   }
 
-  _renderSeparator = () => {
+  _renderHeader() {
+    return <SearchBar
+      placeholder="Søk her ..."
+      round
+      inputStyle={styles.SearchBarInput}
+      containerStyle={styles.searchBarContainer}
+    />
+  }
+
+  _renderSeparator() {
     return <View style={styles.listItemSeperator} />
   }
 
@@ -87,6 +98,12 @@ class FirstTabScreen extends Component {
 }
 
 var styles = StyleSheet.create({
+  searchBarContainer: {
+    backgroundColor: 'white',
+  },
+  SearchBarInput: {
+    backgroundColor: 'white',
+  },
   container: {
     flex: 1
   },
