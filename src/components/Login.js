@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { SocialIcon } from 'react-native-elements'
 import FBSDK from 'react-native-fbsdk';
 
 import * as userActions from '../actions/user.actions';
@@ -18,10 +19,14 @@ class Login extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <TouchableOpacity onPress={this._login}>
-                    <Text style={{ fontSize: 40 }}>Logg inn</Text>
-                </TouchableOpacity>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+                <SocialIcon
+                    title='Logg inn'
+                    raised={false}
+                    button
+                    type='facebook'
+                    onPress={this._login}
+                />
             </View>
         );
     }
