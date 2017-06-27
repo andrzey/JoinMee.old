@@ -35,6 +35,7 @@ class Happening extends Component {
                     <Text style={styles.text}>{this.props.happening.time}</Text>
                     <Text style={styles.text}>{this.props.happening.place}</Text>
                     <Text style={styles.text}>{this.props.happening.description}</Text>
+                    <Text style={styles.text}>{this.props.happening.interest}</Text>
                 </View>
                 <ParticipationButton isAttending={isAttending} onPress={this._toggleParticipation} />
                 <CommentSection

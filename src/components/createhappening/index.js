@@ -17,7 +17,8 @@ class CreateModal extends Component {
             time: Moment().format('dddd D MMM HH:mm'),
             place: null,
             description: null,
-            creator: this.props.userId
+            creator: this.props.userId,
+            interest: null
         };
 
         this.props.navigator.setButtons({
@@ -89,6 +90,13 @@ class CreateModal extends Component {
                     placeholder='Beskrivelse'
                     onChangeText={(description) => this.setState({ description })}
                     value={this.state.description}
+                />
+                <TextInput
+                    style={styles.textInput}
+                    multiline={false}
+                    placeholder='Interesse'
+                    onChangeText={(interest) => this.setState({ interest })}
+                    value={this.state.interest}
                 />
             </View>
         );
