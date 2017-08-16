@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-//const apiUrl = 'http://localhost:8080/api/';
-const apiUrl = 'http://10.0.1.193:8080/api/';
+const apiUrl = 'http://localhost:8080/api/';
 
 export function loadMyHappenings(accessToken) {
     return new Promise((resolve, reject) => {
@@ -73,6 +72,7 @@ export function addHappening(accessToken, happening) {
                 resolve(response.data.happening);
             })
             .catch(error => {
+                console.log(error);
                 reject(error)
             });
     });

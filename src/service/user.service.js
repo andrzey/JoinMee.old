@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const userUrl = 'http://10.0.1.193:8080/user/';
+const userUrl = 'http://localhost:8080/user/';
 
 export function updateUserInterests(accessToken, interests) {
     return new Promise((resolve, reject) => {
