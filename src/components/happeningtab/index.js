@@ -79,12 +79,7 @@ class FirstTabScreen extends Component {
   }
 
   _renderHeader() {
-    return <SearchBar
-      placeholder="Søk her ..."
-      round
-      inputStyle={styles.SearchBarInput}
-      containerStyle={styles.searchBarContainer}
-    />
+    return <View style={styles.header} />
   }
 
   _renderSeparator() {
@@ -97,20 +92,18 @@ class FirstTabScreen extends Component {
   }
 }
 
-var styles = StyleSheet.create({
-  searchBarContainer: {
-    backgroundColor: 'white',
-  },
-  SearchBarInput: {
-    backgroundColor: 'white',
-  },
+const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'white',
   },
   listItemSeperator: {
-    height: 1,
-    width: "100%",
-    backgroundColor: "#CED0CE"
+    height: 5,
+    width: '100%',
+  },
+  header: {
+    height: 5,
+    width: '100%'
   }
 });
 
