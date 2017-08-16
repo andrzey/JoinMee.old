@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { TouchableOpacity, Text, View, StyleSheet, TextInput, Platform } from 'react-native';
-import DatePicker from 'react-native-datepicker'
-import Moment from 'moment'
+import DatePicker from 'react-native-datepicker';
+import Moment from 'moment';
+import 'moment/locale/nb';
 
 import { iconsMap } from '../../utils/app-icons';
 import * as actions from '../../actions/happening.actions';
@@ -14,7 +15,7 @@ class CreateModal extends Component {
 
         this.state = {
             title: null,
-            time: Moment().format('dddd D MMM HH:mm'),
+            time: Moment().format('D MMMM [kl.] HH:mm'),
             description: null,
             creator: this.props.userId,
             interest: null
@@ -60,7 +61,7 @@ class CreateModal extends Component {
                     style={{ width: 200 }}
                     date={this.state.time}
                     mode='datetime'
-                    format='dddd D MMMM HH:mm'
+                    format='D MMMM [kl.] HH:mm'
                     confirmBtnText='Ok'
                     cancelBtnText='Avbryt'
                     showIcon={false}
@@ -115,9 +116,9 @@ class CreateModal extends Component {
                     animationType: 'slide-down'
                 });
             } else if (event.id == 'save') {
-                const a = {address: this.props.address, ...this.state};
-                console.log(a);
-                this.props.actions.addHappening(this.props.accessToken, a);
+                const happeningObject = { address: this.props.address, ...this.state };
+                
+                this.props.actions.addHappening(this.props.accessToken, happeningObject);
                 this.props.actions.loadHappenings(this.props.accessToken);
                 this.props.navigator.dismissModal({
                     animationType: 'slide-down'
