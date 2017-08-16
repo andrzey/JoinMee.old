@@ -33,7 +33,7 @@ class Happening extends Component {
                 <View>
                     <Text style={styles.text}>{this.props.happening.title}</Text>
                     <Text style={styles.text}>{this.props.happening.time}</Text>
-                    <Text style={styles.text}>{this.props.happening.place}</Text>
+                    <Text style={styles.text}>{this.props.happening.address}</Text>
                     <Text style={styles.text}>{this.props.happening.description}</Text>
                     <Text style={styles.text}>{this.props.happening.interest}</Text>
                 </View>

@@ -12,9 +12,9 @@ class HappeningListItem extends Component {
         return (
             <TouchableOpacity onPress={this._onPress}>
                 <View style={styles.container}>
-                    <Text style={styles.text}>{happening.title}</Text>
+                    <Text style={styles.titleText}>{happening.title}</Text>
                     <Text style={styles.text}>{happening.time}</Text>
-                    <Text style={styles.text}>{happening.place}</Text>
+                    <Text style={styles.text}>{happening.address}</Text>
                     <Text style={styles.text}>{happening.description}</Text>
                 </View>
             </TouchableOpacity>
@@ -22,13 +22,20 @@ class HappeningListItem extends Component {
     }
 };
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
+        padding: 5,
         flex: 1,
-        margin: 10
+        marginLeft: 5,
+        marginRight: 5,
+        backgroundColor: '#eceff1',
+    },
+    titleText: {
+        fontSize: 25,
+        fontFamily: 'Helvetica',
     },
     text: {
-        fontSize: 20
+        fontSize: 15
     }
 });
 
