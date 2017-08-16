@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "buffer": "^5.0.7",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "react": "16.0.0-alpha.6",
@@ -16,6 +17,7 @@
     "react-native-datepicker": "^1.6.0",
     "react-native-elements": "^0.13.0",
     "react-native-fbsdk": "^0.6.0",
+    "react-native-google-places-autocomplete": "^1.2.12",
     "react-native-navigation": "^1.1.79",
     "react-native-uuid": "^1.4.9",
     "react-native-vector-icons": "^4.1.1",
