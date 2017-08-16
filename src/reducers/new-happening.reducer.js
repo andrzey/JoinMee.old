@@ -6,6 +6,8 @@ export default function newHappeningReducer(state = {}, action) {
             return Object.assign({}, state, { address: action.address });
         case actionTypes.ADD_HAPPENING_SUCCEEDED:
             return {};
+        case actionTypes.CANCEL_NEW_HAPPENING:
+            return {};
         default:
             return state
     }

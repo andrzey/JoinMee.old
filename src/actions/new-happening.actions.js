@@ -6,3 +6,9 @@ export function addAddress(address) {
         address
     }
 }
+
+export function cancelNewHappening() {
+    return {
+        type: actionTypes.CANCEL_NEW_HAPPENING
+    }
+}
