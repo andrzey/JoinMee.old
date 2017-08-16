@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Text, View, StyleSheet, TextInput, Platform } from 'react-native';
+import { TouchableOpacity, Text, View, StyleSheet, TextInput, Platform } from 'react-native';
 import DatePicker from 'react-native-datepicker'
 import Moment from 'moment'
 
@@ -15,7 +15,6 @@ class CreateModal extends Component {
         this.state = {
             title: null,
             time: Moment().format('dddd D MMM HH:mm'),
-            place: null,
             description: null,
             creator: this.props.userId,
             interest: null
@@ -44,6 +43,7 @@ class CreateModal extends Component {
             }]
         })
         this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
+        this._onPlaceHandle = this._onPlaceHandle.bind(this);
     }
 
     render() {
@@ -77,13 +77,11 @@ class CreateModal extends Component {
                     is24Hour={true}
                     onDateChange={(time) => { this.setState({ time }); }}
                 />
-                <TextInput
-                    style={styles.textInput}
-                    multiline={false}
-                    placeholder='Sted'
-                    onChangeText={(place) => this.setState({ place })}
-                    value={this.state.place}
-                />
+                <TouchableOpacity style={{ height: 40, flex: 1 }} onPress={this._onPlaceHandle}>
+                    <Text style={{ alignItems: 'center' }}>
+                        {(this.props.address != null) ? this.props.address : 'Sted'}
+                    </Text>
+                </TouchableOpacity>
                 <TextInput
                     style={styles.textInput}
                     multiline={false}
@@ -102,6 +100,14 @@ class CreateModal extends Component {
         );
     }
 
+    _onPlaceHandle() {
+        this.props.navigator.showModal({
+            screen: "example.AdressSearch",
+            title: "Legg til sted",
+            animationType: 'slide-up'
+        });
+    }
+
     _onNavigatorEvent(event) {
         if (event.type == 'NavBarButtonPress') {
             if (event.id == 'cancel') {
@@ -109,7 +115,9 @@ class CreateModal extends Component {
                     animationType: 'slide-down'
                 });
             } else if (event.id == 'save') {
-                this.props.actions.addHappening(this.props.accessToken, this.state);
+                const a = {address: this.props.address, ...this.state};
+                console.log(a);
+                this.props.actions.addHappening(this.props.accessToken, a);
                 this.props.actions.loadHappenings(this.props.accessToken);
                 this.props.navigator.dismissModal({
                     animationType: 'slide-down'
@@ -121,7 +129,7 @@ class CreateModal extends Component {
 
 var styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: 300,
         backgroundColor: 'white'
     },
     textInput: {
@@ -130,8 +138,8 @@ var styles = StyleSheet.create({
         marginTop: 5,
         marginRight: 5,
         marginBottom: 0,
-        marginLeft: 5
-
+        marginLeft: 5,
+        flex: 1
     }
 });
 
@@ -144,7 +152,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state, ownProps) => {
     return {
         accessToken: state.user.accessToken,
-        userId: state.user.userId
+        userId: state.user.userId,
+        address: state.newHappening.address
     };
 }
 
