@@ -51,14 +51,14 @@ class CreateModal extends Component {
         return (
             <View style={styles.container}>
                 <TextInput
-                    style={styles.textInput}
+                    style={styles.textInput2}
                     multiline={false}
                     placeholder='Arrangement navn'
                     onChangeText={(title) => this.setState({ title })}
                     value={this.state.title}
                 />
                 <DatePicker
-                    style={{ width: 200 }}
+                    style={{ height: 40, width: null, backgroundColor: 'transparent', flex: 1, marginLeft: 5, marginRight: 5 }}
                     date={this.state.time}
                     mode='datetime'
                     format='D MMMM [kl.] HH:mm'
@@ -70,7 +70,12 @@ class CreateModal extends Component {
                             dateInput: {
                                 borderWidth: 0,
                                 alignItems: 'flex-start',
-                                marginLeft: 5
+                            },
+                            dateText: {
+                                fontSize: 15
+                            },
+                            dateTouchBody: {
+                                flex: 1,
                             }
                         }
                     }
@@ -78,20 +83,20 @@ class CreateModal extends Component {
                     is24Hour={true}
                     onDateChange={(time) => { this.setState({ time }); }}
                 />
-                <TouchableOpacity style={{ height: 40, flex: 1 }} onPress={this._onPlaceHandle}>
-                    <Text style={{ alignItems: 'center' }}>
+                <TouchableOpacity style={{ height: 40, flex: 1, marginLeft: 5, marginRight: 5, justifyContent: 'center' }} onPress={this._onPlaceHandle}>
+                    <Text style={(this.props.address != null) ? { fontSize: 15, color: '#333333' } : {fontSize: 15, color: '#C0C0C7'}}>
                         {(this.props.address != null) ? this.props.address : 'Sted'}
                     </Text>
                 </TouchableOpacity>
                 <TextInput
-                    style={styles.textInput}
+                    style={styles.textInput2}
                     multiline={false}
                     placeholder='Beskrivelse'
                     onChangeText={(description) => this.setState({ description })}
                     value={this.state.description}
                 />
                 <TextInput
-                    style={styles.textInput}
+                    style={styles.textInput2}
                     multiline={false}
                     placeholder='Interesse'
                     onChangeText={(interest) => this.setState({ interest })}
@@ -112,12 +117,13 @@ class CreateModal extends Component {
     _onNavigatorEvent(event) {
         if (event.type == 'NavBarButtonPress') {
             if (event.id == 'cancel') {
+                this.props.actions.cancelNewHappening();
                 this.props.navigator.dismissModal({
                     animationType: 'slide-down'
                 });
             } else if (event.id == 'save') {
                 const happeningObject = { address: this.props.address, ...this.state };
-                
+
                 this.props.actions.addHappening(this.props.accessToken, happeningObject);
                 this.props.actions.loadHappenings(this.props.accessToken);
                 this.props.navigator.dismissModal({
@@ -133,14 +139,16 @@ var styles = StyleSheet.create({
         height: 300,
         backgroundColor: 'white'
     },
-    textInput: {
+    textInput2: {
         height: 40,
-        width: '100%',
-        marginTop: 5,
+        marginTop: 0,
         marginRight: 5,
         marginBottom: 0,
         marginLeft: 5,
-        flex: 1
+        fontSize: 15,
+        backgroundColor: 'transparent',
+        flex: 1,
+        color: '#333333'
     }
 });
 
