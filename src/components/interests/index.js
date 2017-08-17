@@ -7,7 +7,8 @@ import * as _ from 'lodash';
 import { iconsMap } from '../../utils/app-icons';
 import InterestsButton from './interests-button';
 import Interests from '../../utils/interests.utils';
-import * as actions from '../../actions/user.actions';
+import * as userActions from '../../actions/user.actions';
+import * as newHappeningActions from '../../actions/new-happening.actions';
 
 class InterestsModal extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ class InterestsModal extends Component {
                 id: 'save',
                 ...Platform.select({
                     ios: {
-                        title: 'Save',
+                        title: 'Lagre',
                         buttonFontSize: 14,
                         buttonFontWeight: '600'
                     },
@@ -34,7 +35,7 @@ class InterestsModal extends Component {
             }],
             leftButtons: [{
                 id: 'cancel',
-                title: 'Cancel',
+                title: 'Avbryt',
                 buttonFontSize: 14,
                 buttonFontWeight: '600'
             }]
@@ -89,10 +90,14 @@ class InterestsModal extends Component {
                     animationType: 'slide-down'
                 });
             } else if (event.id == 'save') {
+                if (this.props.isNavigatingFromCreateHappening) {
+                    this.props.actions.addInterestsOnHappening(this.state.interests);
+                } else {
+                    this.props.actions.updateInterests(this.props.accessToken, this.state.interests);
+                }
                 this.props.navigator.dismissModal({
                     animationType: 'slide-down'
                 });
-                this.props.actions.updateInterests(this.props.accessToken, this.state.interests);
             }
         }
     }
@@ -111,7 +116,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        actions: bindActionCreators(actions, dispatch)
+        actions: bindActionCreators({ ...userActions, ...newHappeningActions }, dispatch)
     };
 };
 
@@ -123,12 +128,3 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InterestsModal);
-
-/*
-                <InterestsButton text='Politikk' onPress={this._selectedInterest} />
-                <InterestsButton text='Film' onPress={this._selectedInterest} />
-                <InterestsButton text='Teater' onPress={this._selectedInterest} />
-                <InterestsButton text='Dans' onPress={this._selectedInterest} />
-                <InterestsButton text='Musikk' onPress={this._selectedInterest} />
-                <InterestsButton text='Generelt' onPress={this._selectedInterest} />
-*/
