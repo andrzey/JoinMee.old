@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { TouchableOpacity, Text, View, StyleSheet, TextInput, Platform } from 'react-native';
-import DatePicker from 'react-native-datepicker';
+import {View, StyleSheet, TextInput, Platform } from 'react-native';
 import Moment from 'moment';
 import 'moment/locale/nb';
 
+import DateTimePicker from './date-time-picker';
+import SelectAddressButton from './select-address-button';
+import SelectInterestsButton from './select-interests-button';
 import { iconsMap } from '../../utils/app-icons';
-import * as actions from '../../actions/happening.actions';
+import * as happeningActions from '../../actions/happening.actions';
+import * as newHappeningActions from '../../actions/new-happening.actions';
+
 
 class CreateModal extends Component {
     constructor(props) {
@@ -15,10 +19,9 @@ class CreateModal extends Component {
 
         this.state = {
             title: null,
-            time: Moment().format('D MMMM [kl.] HH:mm'),
+            dateTime: Moment().format('D MMMM [kl.] HH:mm'),
             description: null,
             creator: this.props.userId,
-            interest: null
         };
 
         this.props.navigator.setButtons({
@@ -45,62 +48,44 @@ class CreateModal extends Component {
         })
         this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
         this._onPlaceHandle = this._onPlaceHandle.bind(this);
+        this._onInterestsHandle = this._onInterestsHandle.bind(this);
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <TextInput
-                    style={styles.textInput2}
+                    style={styles.textInput}
                     multiline={false}
                     placeholder='Arrangement navn'
                     onChangeText={(title) => this.setState({ title })}
                     value={this.state.title}
                 />
-                <DatePicker
-                    style={{ height: 40, width: null, backgroundColor: 'transparent', flex: 1, marginLeft: 5, marginRight: 5 }}
-                    date={this.state.time}
-                    mode='datetime'
-                    format='D MMMM [kl.] HH:mm'
-                    confirmBtnText='Ok'
-                    cancelBtnText='Avbryt'
-                    showIcon={false}
-                    customStyles={
-                        {
-                            dateInput: {
-                                borderWidth: 0,
-                                alignItems: 'flex-start',
-                            },
-                            dateText: {
-                                fontSize: 15
-                            },
-                            dateTouchBody: {
-                                flex: 1,
-                            }
-                        }
-                    }
-                    minuteInterval={30}
-                    is24Hour={true}
-                    onDateChange={(time) => { this.setState({ time }); }}
+
+                <DateTimePicker
+                    dateTime={this.state.time}
+                    onDateChange={(time) => this.setState({ time })}
                 />
-                <TouchableOpacity style={{ height: 40, flex: 1, marginLeft: 5, marginRight: 5, justifyContent: 'center' }} onPress={this._onPlaceHandle}>
-                    <Text style={(this.props.address != null) ? { fontSize: 15, color: '#333333' } : {fontSize: 15, color: '#C0C0C7'}}>
-                        {(this.props.address != null) ? this.props.address : 'Sted'}
-                    </Text>
-                </TouchableOpacity>
+
+                <SelectAddressButton
+                    address={this.props.address}
+                    placeholder='Sted'
+                    onPress={this._onPlaceHandle}
+                />
+
+                <SelectInterestsButton
+                    interests={this.props.interests}
+                    placeholder='Interesser'
+                    onPress={this._onInterestsHandle}
+                />
+
                 <TextInput
-                    style={styles.textInput2}
-                    multiline={false}
+                    style={styles.textInput}
+                    placeholderTextColor='#C0C0C7'
+                    multiline={true}
                     placeholder='Beskrivelse'
                     onChangeText={(description) => this.setState({ description })}
                     value={this.state.description}
-                />
-                <TextInput
-                    style={styles.textInput2}
-                    multiline={false}
-                    placeholder='Interesse'
-                    onChangeText={(interest) => this.setState({ interest })}
-                    value={this.state.interest}
                 />
             </View>
         );
@@ -114,6 +99,15 @@ class CreateModal extends Component {
         });
     }
 
+    _onInterestsHandle() {
+        this.props.navigator.showModal({
+            screen: "example.Interests",
+            title: "Legg til interesser",
+            animationType: 'slide-up',
+            passProps: { isNavigatingFromCreateHappening: true }
+        });
+    }
+
     _onNavigatorEvent(event) {
         if (event.type == 'NavBarButtonPress') {
             if (event.id == 'cancel') {
@@ -122,7 +116,7 @@ class CreateModal extends Component {
                     animationType: 'slide-down'
                 });
             } else if (event.id == 'save') {
-                const happeningObject = { address: this.props.address, ...this.state };
+                const happeningObject = { address: this.props.address, interest: this.props.interests, ...this.state };
 
                 this.props.actions.addHappening(this.props.accessToken, happeningObject);
                 this.props.actions.loadHappenings(this.props.accessToken);
@@ -139,7 +133,7 @@ var styles = StyleSheet.create({
         height: 300,
         backgroundColor: 'white'
     },
-    textInput2: {
+    textInput: {
         height: 40,
         marginTop: 0,
         marginRight: 5,
@@ -154,7 +148,7 @@ var styles = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        actions: bindActionCreators(actions, dispatch)
+        actions: bindActionCreators({ ...happeningActions, ...newHappeningActions }, dispatch)
     };
 };
 
@@ -162,7 +156,8 @@ const mapStateToProps = (state, ownProps) => {
     return {
         accessToken: state.user.accessToken,
         userId: state.user.userId,
-        address: state.newHappening.address
+        address: state.newHappening.address,
+        interests: state.newHappening.interests
     };
 }
 
