@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
-import { FlatList, View, Text, StyleSheet, Alert, AlertAndroid, Platform } from 'react-native'
+import { FlatList, ScrollView, Text, StyleSheet, Alert, AlertAndroid, Platform } from 'react-native'
 
 import CommentSection from './CommentSection';
 import CommentListItem from './CommentListItem';
-import ParticipationButton from './ParticipationButton';
+import HappeningInfo from './happening-info';
+import ParticipationButton from './participation-button';
 import * as actions from '../../actions/happening.actions';
 import * as listActions from '../../actions/happening-list.actions';
 
@@ -29,22 +30,25 @@ class Happening extends Component {
         const isAttending = this._isUserAttending(this.props.name, this.props.participants);
 
         return (
-            <View style={styles.container}>
-                <View>
-                    <Text style={styles.text}>{this.props.happening.title}</Text>
-                    <Text style={styles.text}>{this.props.happening.time}</Text>
-                    <Text style={styles.text}>{this.props.happening.address}</Text>
-                    <Text style={styles.text}>{this.props.happening.description}</Text>
-                    <Text style={styles.text}>{this.props.happening.interest}</Text>
-                </View>
-                <ParticipationButton isAttending={isAttending} onPress={this._toggleParticipation} />
+            <ScrollView style={styles.container}>
+                <HappeningInfo
+                    title={this.props.happening.title}
+                    time={this.props.happening.time}
+                    address={this.props.happening.address}
+                    description={this.props.happening.description}
+                    interest={this.props.happening.interest}
+                />
+                <ParticipationButton
+                    isAttending={isAttending}
+                    onPress={this._toggleParticipation}
+                />
                 <CommentSection
                     onChangeComment={this._onChangeComment}
                     comment={this.state.comment}
                     onPress={this._addComment}
                     comments={this.props.happening.comments}
                 />
-            </View>
+            </ScrollView>
         );
     }
 
@@ -115,11 +119,9 @@ class Happening extends Component {
 var styles = StyleSheet.create({
     container: {
         display: 'flex',
+        margin: 5,
         flex: 1,
-        margin: 10,
-    },
-    text: {
-        fontSize: 20
+        backgroundColor: 'transparent'
     }
 });
 
