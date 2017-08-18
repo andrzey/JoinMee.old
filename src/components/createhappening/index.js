@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {View, StyleSheet, TextInput, Platform } from 'react-native';
+import { View, StyleSheet, TextInput, Platform } from 'react-native';
 import Moment from 'moment';
 import 'moment/locale/nb';
 
@@ -56,6 +56,7 @@ class CreateModal extends Component {
             <View style={styles.container}>
                 <TextInput
                     style={styles.textInput}
+                    maxLength={64}
                     multiline={false}
                     placeholder='Arrangement navn'
                     onChangeText={(title) => this.setState({ title })}
