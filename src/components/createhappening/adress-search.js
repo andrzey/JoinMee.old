@@ -26,29 +26,29 @@ class AddressSearch extends Component {
             <GooglePlacesAutocomplete
                 enablePoweredByContainer={false}
                 placeholder='Search'
-                minLength={2} // minimum length of text to search
+                minLength={2}
                 autoFocus={false}
                 returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-                listViewDisplayed='auto'    // true/false/undefined
+                listViewDisplayed='auto'
                 fetchDetails={true}
-                renderDescription={(row) => row.description} // custom description render
+                renderDescription={(row) => row.description}
                 onPress={this._onAdressSelected}
                 getDefaultValue={() => {
-                    return ''; // text input default value
+                    return '';
                 }}
                 query={{
                     // available options: https://developers.google.com/places/web-service/autocomplete
                     key: 'AIzaSyC47x1dszvWqfN3KdfanlfsWHZsO27mRSY',
-                    language: 'no', // language of the results // default: 'geocode'
+                    language: 'no',
                     country: 'Norway'
                 }}
-                nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+                nearbyPlacesAPI='GooglePlacesSearch'
                 GooglePlacesSearchQuery={{
                     // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
                     rankby: 'distance',
                 }}
 
-                debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
+                debounce={200}
             />
         );
     }
