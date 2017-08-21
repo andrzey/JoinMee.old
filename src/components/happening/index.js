@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
-import { FlatList, ScrollView, Text, StyleSheet, Alert, AlertAndroid, Platform } from 'react-native'
+import { ScrollView, StyleSheet, Alert, Platform } from 'react-native'
 
-import CommentSection from './CommentSection';
-import CommentListItem from './CommentListItem';
+import CommentSection from './comment-section';
 import HappeningInfo from './happening-info';
 import ParticipationButton from './participation-button';
 import * as actions from '../../actions/happening.actions';

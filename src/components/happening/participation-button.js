@@ -17,7 +17,8 @@ const ParticipationButton = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 5,
+        marginTop: 10,
+        marginBottom: 10,
         display: 'flex',
         flex: 1,
         justifyContent: 'center',
