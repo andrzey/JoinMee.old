@@ -19,7 +19,7 @@ class CreateModal extends Component {
 
         this.state = {
             title: null,
-            dateTime: Moment().format('D MMMM [kl.] HH:mm'),
+            time: Moment().format('D[.] MMMM [kl.] HH:mm'),
             description: null,
             creator: this.props.userId,
         };
