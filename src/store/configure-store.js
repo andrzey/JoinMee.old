@@ -5,7 +5,6 @@ import { composeWithDevTools } from 'remote-redux-devtools';
 import rootReducer from '../reducers/root-reducer';
 import rootSaga from './root-saga';
 import { startAppMiddleware } from './startAppMiddleware';
-import { accessTokenMiddleware } from './accessTokenMiddleware';
 
 export default function configureStore(initialState) {
     const sagaMiddleware = createSagaMiddleware();
@@ -16,7 +15,6 @@ export default function configureStore(initialState) {
         composeWithDevTools(
             applyMiddleware(
                 sagaMiddleware,
-                accessTokenMiddleware,
                 startAppMiddleware
             )
         )
