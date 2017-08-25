@@ -1,5 +1,4 @@
 import * as actionTypes from '../actions/action-types';
-import * as storageUtils from '../utils/storage-utils';
 import { AsyncStorage } from 'react-native';
 
 export const accessTokenMiddleware = store => next => action => {
