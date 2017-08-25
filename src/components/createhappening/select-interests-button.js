@@ -2,15 +2,15 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const SelectInterestsButton = (props) => {
-    const isInterestsSelected = (props.interests != null) ? true : false;
+    const isInterestsSelected = (props.interests && props.interests.length > 0) ? true : false;
 
     return (
         <TouchableOpacity style={styles.touchable} onPress={props.onPress}>
             <Text style={(isInterestsSelected) ? styles.interestsIsSelected : styles.interestsIsNotSelected}>
                 {
                     (isInterestsSelected) ?
-                        props.interests.map((interest) => {
-                            return interest + ' ';
+                        props.interests.map((item) => {
+                            return item + ' ';
                         })
                         : props.placeholder}
             </Text>

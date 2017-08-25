@@ -15,7 +15,9 @@ class InterestsModal extends Component {
         super(props);
 
         this.state = {
-            interests: this.props.interests
+            interests: (this.props.isNavigatingFromCreateHappening)
+                ? this.props.newHappeningInterests
+                : this.props.userInterests
         }
 
         this.props.navigator.setButtons({
@@ -49,13 +51,13 @@ class InterestsModal extends Component {
         return (
             <View style={styles.container}>
                 {
-                    Interests.map((interest) => {
+                    Interests.map((item) => {
                         return (
                             <InterestsButton
-                                key={interest}
-                                text={interest}
+                                key={item}
+                                text={item}
                                 onPress={this._selectedInterest}
-                                isPressed={this._includes(interest)}
+                                isPressed={this._includes(item, this.state.interests)}
                             />
                         );
                     })
@@ -64,8 +66,8 @@ class InterestsModal extends Component {
         );
     }
 
-    _includes(interest) {
-        const foundInterest = _.find(this.props.interests, (item) => {
+    _includes(interest, arrayOfInterests) {
+        const foundInterest = _.find(arrayOfInterests, (item) => {
             return item === interest;
         })
 
@@ -79,6 +81,7 @@ class InterestsModal extends Component {
             const filteredInterests = this.state.interests.filter((item) => {
                 return item != interest;
             });
+            
             this.setState({ interests: filteredInterests });
         }
     }
@@ -123,7 +126,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state, ownProps) => {
     return {
         accessToken: state.user.accessToken,
-        interests: state.user.interests
+        userInterests: state.user.interests,
+        newHappeningInterests: state.newHappening.interests
     };
 }
 

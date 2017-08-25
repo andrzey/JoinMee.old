@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, Platform, Image } from 'react-native';
+
+import { iconsMap } from '../../utils/app-icons';
 
 class InterestsButton extends Component {
     constructor(props) {
@@ -19,12 +21,12 @@ class InterestsButton extends Component {
     }
 
     render() {
-        const backgroundColor = (this.state.isPressed) ? { backgroundColor: '#006400' } : { backgroundColor: 'lightblue' };
+        const buttonStyle = (this.state.isPressed) ? styles.isPressed : styles.isNotPressed;
 
         return (
             <TouchableOpacity
                 onPress={this._onPress}
-                style={[styles.container, backgroundColor]}
+                style={[styles.container, buttonStyle]}
                 underlayColor='#006400'>
                 <Text style={styles.text}>{this.props.text}</Text>
             </TouchableOpacity>
@@ -40,12 +42,24 @@ class InterestsButton extends Component {
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
+        alignItems: 'center',
         height: 30,
         margin: 5
     },
     text: {
         margin: 5,
         fontSize: 20
+    },
+    isPressed: {
+        backgroundColor: '#e6f3f7',
+        borderWidth: 1,
+        borderColor: '#cccccc',
+        borderRadius: 5
+    },
+    isNotPressed: {
+        borderWidth: 1,
+        borderColor: 'transparent',
+        borderRadius: 5
     }
 });
 
