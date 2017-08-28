@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { View, StyleSheet, TextInput, Platform } from 'react-native';
+import { Alert, View, StyleSheet, TextInput, Platform } from 'react-native';
 import Moment from 'moment';
 import 'moment/locale/nb';
 
@@ -47,8 +47,12 @@ class CreateModal extends Component {
             }]
         })
         this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
+        this._addHappening = this._addHappening.bind(this);
         this._onPlaceHandle = this._onPlaceHandle.bind(this);
         this._onInterestsHandle = this._onInterestsHandle.bind(this);
+        this._verifyInformation = this._verifyInformation.bind(this);
+        this._checkProperties = this._checkProperties.bind(this);
+        this._showAlert = this._showAlert.bind(this);
     }
 
     render() {
@@ -92,6 +96,25 @@ class CreateModal extends Component {
         );
     }
 
+    _onNavigatorEvent(event) {
+        if (event.type == 'NavBarButtonPress') {
+            if (event.id == 'cancel') {
+                this.props.actions.cancelNewHappening();
+                this.props.navigator.dismissModal({
+                    animationType: 'slide-down'
+                });
+            } else if (event.id == 'save') {
+                const happeningObject = { address: this.props.address, interest: this.props.interests, ...this.state };
+
+                if (this._verifyInformation(happeningObject)) {
+                    this._addHappening(happeningObject);
+                } else {
+                    this._showAlert();
+                }
+            }
+        }
+    }
+
     _onPlaceHandle() {
         this.props.navigator.showModal({
             screen: "example.AdressSearch",
@@ -109,23 +132,42 @@ class CreateModal extends Component {
         });
     }
 
-    _onNavigatorEvent(event) {
-        if (event.type == 'NavBarButtonPress') {
-            if (event.id == 'cancel') {
-                this.props.actions.cancelNewHappening();
-                this.props.navigator.dismissModal({
-                    animationType: 'slide-down'
-                });
-            } else if (event.id == 'save') {
-                const happeningObject = { address: this.props.address, interest: this.props.interests, ...this.state };
+    _addHappening(happeningObject) {
+        this.props.actions.addHappening(this.props.accessToken, happeningObject);
+        this.props.actions.loadHappenings(this.props.accessToken);
+        this.props.navigator.dismissModal({
+            animationType: 'slide-down'
+        });
 
-                this.props.actions.addHappening(this.props.accessToken, happeningObject);
-                this.props.actions.loadHappenings(this.props.accessToken);
-                this.props.navigator.dismissModal({
-                    animationType: 'slide-down'
-                });
+    }
+
+    _showAlert() {
+        Alert.alert(
+            'Ooops',
+            `Fyll ut all info i første omgang`,
+            [
+                {
+                    text: 'OK',
+                    onPress: () => { }
+                },
+            ]
+        );
+    }
+
+    _verifyInformation(obj) {
+        if (this._checkProperties(obj)) {
+            return true;
+        }
+        return false;
+    }
+
+    _checkProperties(obj) {
+        for (var key in obj) {
+            if (obj[key] === null || obj[key] === '' || obj[key] === undefined) {
+                return false;
             }
         }
+        return true;
     }
 }
 
