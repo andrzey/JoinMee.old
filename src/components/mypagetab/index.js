@@ -39,6 +39,7 @@ class SecondTabScreen extends Component {
           onRefresh={this._loadMyHappenings}
           refreshing={refreshing}
           keyExtractor={(item) => item.id}
+          ListHeaderComponent={this._renderHeader}
           ItemSeparatorComponent={this._renderSeparator}
           data={this.props.userHappenings}
           renderItem={({ item }) => <HappeningListItem onPress={this._selectHappening} happening={item} />}
@@ -56,7 +57,7 @@ class SecondTabScreen extends Component {
       if (event.id == 'settings') {
         this.props.navigator.push({
           screen: 'example.Settings',
-          title: 'Settings', 
+          title: 'Settings',
           animated: true,
           animationType: 'slide-horizontal',
           navigatorButtons: {}
@@ -77,6 +78,10 @@ class SecondTabScreen extends Component {
     });
   }
 
+  _renderHeader() {
+    return <View style={styles.header} />
+  }
+
   _renderSeparator = () => {
     return <View style={styles.listItemSeperator} />
   }
@@ -89,12 +94,16 @@ class SecondTabScreen extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'white',
   },
   listItemSeperator: {
-    height: 1,
-    width: "100%",
-    backgroundColor: "#CED0CE"
+    height: 5,
+    width: '100%',
+  },
+  header: {
+    height: 5,
+    width: '100%'
   }
 });
 
